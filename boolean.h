@@ -9,6 +9,5 @@
 #define boolean_H
 #define true 1
 #define false 0
-#define Nil NULL
 #define boolean unsigned char
 #endif

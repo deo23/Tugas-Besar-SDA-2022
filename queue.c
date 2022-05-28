@@ -68,21 +68,7 @@ int IsQueueEmpty(Queue Q){
 /* I.S. Q mungkin kosong atau Q mungkin berisi antrian */
 /* F.S. info baru (data) menjadi Rear yang baru dengan node Rear
 yang lama mengaitkan pointernya ke node yang baru */
-void enQueue(Queue *Q, infotype data){
-
-//deklarasi
-	addrNQ P;
-	
-	//algoritma
-	P = Alokasi(data); //memesan tempat di memori untuk antrian baru
-	if (CekAntrianKosong(*Q) == 1){ //jika antrian masih kosong
-		(*Q).Front = P;
-		(*Q).Rear = P;
-	} else { //jika antrian tidak kosong
-		(*Q).Rear->next = P;
-		(*Q).Rear = P;
-	}
-}
+void enQueue(Queue *Q, infotype data); //Deo
 
 
 /* Proses: Mengambil info pada Front(Q) dan mengeluarkannya dari
@@ -221,20 +207,20 @@ void setTime (Queue *Q){
 	if (Front(*Q) == Rear(*Q)){
 		Info(temp).waktuTunggu = 0;
 		Info(temp).waktuMulai = Info(temp).waktuDatang;
-		Info(temp).waktuSelesai = Info(temp).waktuMulai + Info(temp).waktuPelayanan;
+		Info(temp).waktuAkhir = Info(temp).waktuMulai + Info(temp).waktuEstimasi;
 	} else {
 		do {
 			if(temp == Front(*Q)){
 				Info(temp).waktuTunggu = 0;
 				Info(temp).waktuMulai = Info(temp).waktuDatang;
-				Info(temp).waktuSelesai = Info(temp).waktuMulai + Info(temp).waktuPelayanan;
+				Info(temp).waktuAkhir = Info(temp).waktuMulai + Info(temp).waktuEstimasi;
 			} else {
-				if(prev->info.waktuSelesai > Info(temp).waktuDatang){
-					Info(temp).waktuTunggu = prev->info.waktuSelesai - Info(temp).waktuDatang;
+				if(prev->info.waktuAkhir > Info(temp).waktuDatang){
+					Info(temp).waktuTunggu = prev->info.waktuAkhir - Info(temp).waktuDatang;
 				}
 				else Info(temp).waktuTunggu = 0;
 				Info(temp).waktuMulai = Info(temp).waktuTunggu + Info(temp).waktuDatang;
-				Info(temp).waktuSelesai = Info(temp).waktuMulai + Info(temp).waktuPelayanan;
+				Info(temp).waktuAkhir = Info(temp).waktuMulai + Info(temp).waktuEstimasi;
 			}
 			prev = temp;
 			temp = Next(temp);

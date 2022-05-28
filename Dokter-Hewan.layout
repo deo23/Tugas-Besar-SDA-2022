@@ -1,12 +1,12 @@
 [Editor_3]
 CursorCol=3
-CursorRow=275
-TopLine=268
+CursorRow=119
+TopLine=55
 LeftChar=1
 [Editor_2]
-CursorCol=9
-CursorRow=49
-TopLine=13
+CursorCol=1
+CursorRow=20
+TopLine=85
 LeftChar=1
 [Editors]
 Order=0,1,3,2
@@ -17,7 +17,7 @@ CursorRow=1
 TopLine=1
 LeftChar=1
 [Editor_1]
-CursorCol=17
-CursorRow=12
+CursorCol=15
+CursorRow=10
 TopLine=1
 LeftChar=1

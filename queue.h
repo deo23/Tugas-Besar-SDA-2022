@@ -10,7 +10,6 @@
 
 #include "boolean.h"
 #include <stdio.h>
-#include <stdlib.h>
 
 #define Info(P) (P)->info
 #define Next(P) (P)->next
@@ -20,12 +19,6 @@
 #define Rear(Q) (Q).Rear
 
 typedef struct NodeQueue *addrNQ;
-
-typedef struct List {
-	char penyakit1[20]; 
-	char penyakit2[20]; 
-	char penyakit3[20]; 
-}List;
 
 typedef struct{
     char namaHewan[20];
