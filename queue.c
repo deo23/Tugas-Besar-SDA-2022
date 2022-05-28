@@ -7,9 +7,7 @@
 */
 #include <stdio.h>
 #include "queue.h"
-
-
-
+#include "time.h"
 /***** Manajemen memori *****/
 /* Mengirimkan address hasil alokasi sebuah elemen dengan info X.
 * Jika alokasi berhasil, modul mengembalikan P; Info(P) = X,
@@ -51,7 +49,6 @@ F.S. Sudah terbentuk Queue
 */
 void CreateQueue(Queue *Q){
 	(*Q).Front = Nil;
-	(*Q).Rear = Nil;
 }
 
 /* Mengetahui apakah Queue kosong atau tidak.
@@ -60,7 +57,7 @@ mengirimkan 1 jika Queue Kosong yaitu Front(Q) = Nil dan Rear
 Sebaliknya 0 (Queue tidak kosong)
 */
 int IsQueueEmpty(Queue Q){
-	if (Q.Front == Nil && Q.Rear == Nil) {
+	if (Q.Front == Nil) {
 		return 1;
 	} else {
 		return 0;
@@ -71,153 +68,26 @@ int IsQueueEmpty(Queue Q){
 /* I.S. Q mungkin kosong atau Q mungkin berisi antrian */
 /* F.S. info baru (data) menjadi Rear yang baru dengan node Rear
 yang lama mengaitkan pointernya ke node yang baru */
-void enQueue(Queue *Q, infotype data){
-	addrNQ P, travel, before, after;
-	//Membuat node baru dengan nama P
-	P = Alokasi(data);
-	//Insert in First Queue
-	if (IsQueueEmpty(*Q) == 1){
-		Front(*Q) = P;
-		Rear(*Q) = P;
-	}
-	//Insert Ketika waktu mulai pada Rear kurang dari waktu kedatangan node baru
-	else if (Info(Rear(*Q)).waktuMulai < Info(P).waktuDatang){
-		Next(Rear(*Q)) = P;
-		Rear(*Q) = P;
-	}
-	//Insert Ketika waktu mulai pada rear lebih dari atau sama dengan waktu kedatangan node baru
-	else if (Info(Rear(*Q)).waktuMulai >= Info(P).waktuDatang){
-		//Jika hanya terdapat 1 node pada queue
-		if(Front(*Q) == Rear(*Q)){
-			//jika waktu kedatangan node baru sama seperti waktu kedatangan front
-			if (Info(P).waktuDatang == Info(Front(*Q)).waktuDatang){
-				//Jika prioritas Front kurang dari node baru
-				if (Info(Front(*Q)).prioritas < Info(P).prioritas){
-					Next(P) = Front(*Q);
-					Front(*Q) = P;
-				}
-				//Jika prioritas Front lebih dari aau sama dengan dari node Baru
-				else {
-					Next(Front(*Q)) = P;
-					Rear(*Q) = P;
-				}
-			}
-			//Jika waktu kedatangan node baru tidak sama dengan waktu kedatangan front
-			else {
-				Next(Front(*Q)) = P;
-				Rear(*Q) = P;
-			}
+// Function to push according to priority
+void enQueue(Queue *Q, infotype X){
+	addrNQ P, temp;
+	
+	P = Alokasi(X);
+	if(P != Nil){
+		if(IsQueueEmpty((*Q)) || Info(P).prioritas > Info(Front(*Q)).prioritas){
+			Next(P) = Front(*Q);
+			Front(*Q) = P;
 		}
-		//Jika terdapat 2 atau lebih node pada queueu
 		else{
-			//Jika waktu kedatangan front sama dengan waktu kedatangan node baru
-			if(Info(P).waktuDatang == Info(Front(*Q)).waktuDatang){
-				//jika prioritas front kurang dari prioritas node baru
-				if (Info(Front(*Q)).prioritas < Info(P).prioritas){
-					Next(P) = Front(*Q);
-					Front(*Q) = P;
-				}
-				//Jika prioritas front lebih dari atau sama dengan prioritas node baru
-				else if (Info(Front(*Q)).prioritas >= Info(P).prioritas){
-					//pointer menunjuk front
-					travel = Front(*Q);
-					//pointer berjalan ke node selanjutnya jika prioritas node baru kurang
-					//dari atau sama dengan prioritas node yang ditunjuk travel, dan node travel
-					//selanjutnya tidak NULL
-					while (Info(P).prioritas <= Info(travel).prioritas && Next(travel)!=NULL){
-						before = travel;
-						travel = Next(travel);
-					}
-					//Kondisi kondisi ketika travel berhenti bergerak (endwhile)
-					if (Info(P).prioritas > Info(travel).prioritas && Next(travel)==NULL){
-						Next(before)=P;
-						Next(P)=travel;
-					}
-					else if (Info(P).prioritas <= Info(travel).prioritas && Next(travel)==NULL){
-						Next(travel) = P;
-						Rear(*Q) = P;
-					}
-					else if (Info(P).prioritas > Info(travel).prioritas && Next(travel)!=NULL){
-						Next(before)=P;
-						Next(P)=travel;
-					}
-				}
+			temp = Front(*Q);
+			while((Next(temp) != Nil) && (Info(Next(temp)).prioritas >= Info(P).prioritas)){
+				temp = Next(temp);
 			}
-			//Jika waktu kedatangan node baru tidak sama dengan waktu kedatangan front
-			else if(Info(P).waktuDatang != Info(Front(*Q)).waktuDatang){
-				travel = Front(*Q);
-				//Travel berjalan seperti pada line 133
-				while (Info(travel).waktuDatang == Info(Front(*Q)).waktuDatang && Next(travel)!=NULL){
-					before = travel;
-					travel = Next(travel);
-				}
-				//Kondisi kondisi ketika travel berhenti bergerak (endwhile)
-				if (Info(travel).waktuDatang != Info(Front(*Q)).waktuDatang && Next(travel)==NULL){
-					if (Info(travel).prioritas < Info(P).prioritas){
-						Next(before) = P;
-						Next(P) = travel;
-					}
-					else {
-						Next(travel) = P;
-						Rear(*Q) = P;
-					}
-				}
-				else if (Next(travel)==NULL){
-					Next(travel) = P;
-					Rear(*Q) = P;
-				}
-				else if (Info(travel).waktuDatang != Info(Front(*Q)).waktuDatang){
-					if (Info(travel).prioritas < Info(P).prioritas){
-						Next(before) = P;
-						Next(P) = travel;
-					}
-					else {
-						//travel berjalan pada node yang waktu kedatangannya tidak sama dengan front
-						while (Info(travel).prioritas >= Info(P).prioritas && Next(travel)!=NULL){
-							before = travel;
-							travel = Next(travel);
-						}
-						//kondisi ketika travel bergerak dan berhenti di tengah queue (bukan rear)
-						if (Next(travel)!=NULL){
-							after = Next(travel);
-							if (Info(travel).prioritas <= Info(P).prioritas){
-								Next(before)=P;
-								Next(P)=travel;
-							}
-							else {
-								//travel akan berjalan lagi hingga urutan belakang pada prioritas yang sama
-								// dengan node baru
-								while (Info(travel).prioritas <= Info(after).prioritas){
-									if (Info(travel).prioritas > Info(after).prioritas){
-										Next(P)=after;
-										Next(travel) = P;
-									}
-									travel = after;
-									after = Next(after);
-								}
-							}
-
-						}
-						//kondisi ketika travel sudah bergerak higga rear dan berhenti di rear
-						else if (Next(travel)==NULL){
-							if(Info(travel).prioritas < Info(P).prioritas){
-								Next(before)=P;
-								Next(P) = travel;
-								Rear(*Q) = travel;
-							}
-							else if(Info(travel).prioritas >= Info(P).prioritas){
-								Next(travel) = P;
-								Rear(*Q) = P;
-							}
-						}
-					}
-				}
-			}
+			Next(P) = Next(temp);
+			Next(temp) = P;
 		}
 	}
 }
-
-
 /* Proses: Mengambil info pada Front(Q) dan mengeluarkannya dari
 Queue dengan aturan FIFO dan memasukkan data yang terhapus ke dalam file*/
 /* I.S. Q mungkin kosong atau Q mungkin berisi antrian */
@@ -225,15 +95,15 @@ Queue dengan aturan FIFO dan memasukkan data yang terhapus ke dalam file*/
 /* Front(Q) menunjuk ke next antrian atau diset menjadi NIll, Q
 mungkin kosong */
 void deQueue(Queue *Q){
-	if(IsQueueEmpty(*Q)==1){
-		printf("%67.c Maaf Antrian Kosong.\n");
+	if(IsQueueEmpty(*Q)){
+		puts("============================================");
+		printf("Maaf Antrian Kosong.\n");
 	}
 	else {
 		addrNQ P;
 		P = Front(*Q);
-		if (Front(*Q)==Rear(*Q)){
+		if (Next(Front(*Q)) == Nil){
 			Front(*Q)=NULL;
-			Rear(*Q)=NULL;
 		}
 		else{
 			Front(*Q) = Next(Front(*Q));
@@ -345,32 +215,23 @@ int hitungWaktuPelayanan(int Ringan, int Sedang, int Berat){
    I.S : Semua waktu belum ada nilai atau tidak sesuai
    F.S : Nilai semua waktu berubah seiring adanya perubahan urutan queue
 */
-void setTime (Queue *Q){
-	addrNQ temp, prev;
+void setTime(Queue *Q){
+	addrNQ P, prev;
 	
-	temp = Front(*Q);
-	
-	if (Front(*Q) == Rear(*Q)){
-		Info(temp).waktuTunggu = 0;
-		Info(temp).waktuMulai = Info(temp).waktuDatang;
-		Info(temp).waktuSelesai = Info(temp).waktuMulai + Info(temp).waktuPelayanan;
-	} else {
-		do {
-			if(temp == Front(*Q)){
-				Info(temp).waktuTunggu = 0;
-				Info(temp).waktuMulai = Info(temp).waktuDatang;
-				Info(temp).waktuSelesai = Info(temp).waktuMulai + Info(temp).waktuPelayanan;
-			} else {
-				if(prev->info.waktuSelesai > Info(temp).waktuDatang){
-					Info(temp).waktuTunggu = prev->info.waktuSelesai - Info(temp).waktuDatang;
-				}
-				else Info(temp).waktuTunggu = 0;
-				Info(temp).waktuMulai = Info(temp).waktuTunggu + Info(temp).waktuDatang;
-				Info(temp).waktuSelesai = Info(temp).waktuMulai + Info(temp).waktuPelayanan;
-			}
-			prev = temp;
-			temp = Next(temp);
-		} while(temp != NULL);
+	P = Front(*Q);
+	Info(P).waktuTunggu.hour = 0;
+	Info(P).waktuTunggu.min = 0;
+	Info(P).waktuMulai.hour = Info(P).waktuDatang.hour;
+	Info(P).waktuMulai.min = Info(P).waktuDatang.min;
+	Info(P).waktuSelesai = addTime(Info(P).waktuMulai, Info(P).waktuPelayanan) ;
+	prev = P;
+	P = Next(P);
+	while(P != Nil){
+		Info(P).waktuTunggu = substractTime(Info(prev).waktuSelesai, Info(P).waktuDatang) ;
+		Info(P).waktuMulai = addTime(Info(P).waktuTunggu, Info(P).waktuDatang) ;
+		Info(P).waktuSelesai = addTime(Info(P).waktuMulai, Info(P).waktuPelayanan) ;
+		prev = P;
+		P = Next(P);
 	}
 }
 
@@ -390,9 +251,9 @@ void Registrasi(Queue *Q){
 	printf("					====================================\n");
 	printf("					              Registrasi\n");
 	printf("					====================================\n");
-	printf("					Nama Kucing                  : "); scanf("%s", &X.namaHewan);
+	printf("					Nama Hewan                  : "); scanf("%s", &X.namaHewan);
 	fflush(stdin);
-	printf("					Datang di menit ke          : "); scanf("%d", &X.waktuDatang);
+	printf("					Datang pada pukul           : "); scanf("%d:%d", &X.waktuDatang.hour, &X.waktuDatang.min);
 	fflush(stdin);
 	
 	printf("\n");
@@ -426,7 +287,8 @@ void Registrasi(Queue *Q){
 		}
 	}
 	X.prioritas = hitungPrioritas(countR, countS, countB);
-	X.waktuPelayanan = hitungWaktuPelayanan(countR, countS, countB);
+	X.waktuPelayanan.min = hitungWaktuPelayanan(countR, countS, countB);
+	X.waktuPelayanan.hour = 0;
 	enQueue(Q, X);
 	setTime(*(&Q));
 
@@ -446,7 +308,6 @@ void PrintQueue(Queue Q){
 	addrNQ P;
 	
 	int i=1, j;
-	int lenght;
 	
 	P = Q.Front;
 		
@@ -459,15 +320,15 @@ void PrintQueue(Queue Q){
 	} else {
 		while(P != Nil){
 			printf("					No. Antrian                 : %d\n", i++);
-			printf("					Nama Kucing                  : %s\n", (P)->info.namaHewan);
-			printf("					Datang di menit ke          : %d\n", (P)->info.waktuDatang);
+			printf("					Nama Hewan                  : %s\n", (P)->info.namaHewan);
+			printf("					Datang pada pukul           : %d:%d\n", (P)->info.waktuDatang.hour, (P)->info.waktuDatang.min);
 			puts("					Penyakit yang Diderita      :");
 			PrintInfo(P->info.listPenyakit, arrPenyakit);
 			printf("					Nilai Prioritas             : %d\n", (P)->info.prioritas);
-			printf("					Estimasi Waktu Pelayanan    : %d\n", (P)->info.waktuPelayanan);
-			printf("					Waktu Tunggu Pelayanan      : %d\n", (P)->info.waktuTunggu);
-			printf("					Waktu Mulai Pelayanan       : %d\n", (P)->info.waktuMulai);
-			printf("					Waktu Selesai Pelayanan     : %d\n", (P)->info.waktuSelesai);
+			printf("					Estimasi Waktu Pelayanan    : %d:%d\n", (P)->info.waktuPelayanan.hour, (P)->info.waktuPelayanan.min);
+			printf("					Waktu Tunggu Pelayanan      : %d:%d\n", (P)->info.waktuTunggu.hour, (P)->info.waktuTunggu.min);
+			printf("					Waktu Mulai Pelayanan       : %d:%d\n", (P)->info.waktuMulai.hour, (P)->info.waktuMulai.min);
+			printf("					Waktu Selesai Pelayanan     : %d:%d\n", (P)->info.waktuSelesai.hour, (P)->info.waktuSelesai.min);
 			
 			printf("					------------------------------------\n");
 			
@@ -476,28 +337,4 @@ void PrintQueue(Queue Q){
 	}
 }
 
-void PrintHistory(); 
 
-boolean PrintData(Queue Q, char *namaHewan){
-/* mengirim true jika elemen x ada pada Q,
-dan false jika x tidak ditemukan pada Q
-skema pencarian dengan boolean
-*/
- address P;
- boolean found;
- infotype X;
- 
- found = false;
- 
- printf("					Nama Kucing                  : "); scanf("%s", &X.namaHewan);
- fflush(stdin);
- while((P != NULL) && (!found)){
-	if(strcpy (Info(Front(Q)).namaHewan, namaHewan)){
-   	found = true;
-  	}
-  	else{
-   		P = next(P);
-  	}
- }
- return found;
-}

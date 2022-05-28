@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include "list.h"
 #include <string.h>
+#include "time.h"
 
 #define Info(P) (P)->info
 #define Next(P) (P)->next
@@ -20,23 +21,19 @@
 #define InfoRear(Q) (Q).Rear->info
 #define Front(Q) (Q).Front
 #define Rear(Q) (Q).Rear
-#define info(P) (P)->info
-#define next(P) (P)->next
-#define TAIL(Q) (Q).TAIL
 
 typedef struct NodeQueue *addrNQ;
 
 
 typedef struct{
     char namaHewan[20];
-	int waktuDatang;
+	time waktuDatang;
 	List listPenyakit;
-	int waktuMulai;
-	int waktuTunggu;
-	int waktuPelayanan;
-	int waktuSelesai;
+	time waktuMulai;
+	time waktuTunggu;
+	time waktuPelayanan;
+	time waktuSelesai;
 	int prioritas;
-	
 } InfoCustomer;
 typedef InfoCustomer infotype;
 
@@ -144,32 +141,5 @@ void Registration(Queue *Q); //Deo
    F.S : Jika file tersebut tidak ada, program mengirimkan pesan eror
   		 Jika ada, program akan meng-overwrite data-data queue
 */
-void EntryQueueFile(Queue *Q); //Deo
-
-/* Proses : Memasukkan data-data queue yang terhapus ke dalam file riwayat-antrian.txt
-  		   secara berurutan
-   I.S : File mungkin kosong atau tidak ada
-   F.S : Jika file tersebut tidak ada, program mengirimkan pesan eror
-  		 Jika file ada, program akan memasukkan data-data queue yang terhapus tanpa menimpa data
-  		 sebelumnya
-*/
-void EntryHistoryFile(addrNQ P); //Deo
-
-/* Proses : Membaca seluruh isi file daftar-antrian.txt
-   I.S : File mungkin tidak ada atau mungkin ada
-   F.S : Jika file tidak ditemukan, program mengirimkan pesan eror
-         Jika file ada, program menampilkan isi dari file daftar-antrian.txt
-*/
-void PrintQueue(Queue Q); //Deo
-
-/* Proses : Membaca seluruh isi file riwayat-antrian.txt
-   I.S : File mungkin tidak ada atau mungkin ada
-   F.S : Jika file tidak ditemukan, program mengirimkan pesan eror
-         Jika file ada, program menampilkan isi dari file riwayat-antrian.txt
-*/
-void PrintHistory(); //Deo
-
-boolean PrintData(Queue Q, char *namaHewan); //berliana
-
 
 #endif // QUEUE_H

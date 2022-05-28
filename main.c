@@ -68,8 +68,8 @@ int main (){
 		}
 		else if(menuPilihan == '3'){
 			
-			PrintData(&Q);
-			system("pause");
+			
+		
 
 		}
 		else if(menuPilihan == '4'){
@@ -96,4 +96,5 @@ int main (){
 	return 0;
 
 }
+
 
