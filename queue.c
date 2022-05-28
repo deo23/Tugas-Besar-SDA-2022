@@ -7,6 +7,9 @@
 */
 #include <stdio.h>
 #include "queue.h"
+
+
+
 /***** Manajemen memori *****/
 /* Mengirimkan address hasil alokasi sebuah elemen dengan info X.
 * Jika alokasi berhasil, modul mengembalikan P; Info(P) = X,
@@ -223,8 +226,7 @@ Queue dengan aturan FIFO dan memasukkan data yang terhapus ke dalam file*/
 mungkin kosong */
 void deQueue(Queue *Q){
 	if(IsQueueEmpty(*Q)==1){
-		puts("============================================");
-		printf("Maaf Antrian Kosong.\n");
+		printf("%67.c Maaf Antrian Kosong.\n");
 	}
 	else {
 		addrNQ P;
@@ -388,7 +390,7 @@ void Registrasi(Queue *Q){
 	printf("					====================================\n");
 	printf("					              Registrasi\n");
 	printf("					====================================\n");
-	printf("					Nama Hewan                  : "); scanf("%s", &X.namaHewan);
+	printf("					Nama Kucing                  : "); scanf("%s", &X.namaHewan);
 	fflush(stdin);
 	printf("					Datang di menit ke          : "); scanf("%d", &X.waktuDatang);
 	fflush(stdin);
@@ -457,7 +459,7 @@ void PrintQueue(Queue Q){
 	} else {
 		while(P != Nil){
 			printf("					No. Antrian                 : %d\n", i++);
-			printf("					Nama Hewan                  : %s\n", (P)->info.namaHewan);
+			printf("					Nama Kucing                  : %s\n", (P)->info.namaHewan);
 			printf("					Datang di menit ke          : %d\n", (P)->info.waktuDatang);
 			puts("					Penyakit yang Diderita      :");
 			PrintInfo(P->info.listPenyakit, arrPenyakit);
@@ -474,5 +476,28 @@ void PrintQueue(Queue Q){
 	}
 }
 
-void PrintHistory(); //Deo
+void PrintHistory(); 
 
+boolean PrintData(Queue Q, char *namaHewan){
+/* mengirim true jika elemen x ada pada Q,
+dan false jika x tidak ditemukan pada Q
+skema pencarian dengan boolean
+*/
+ address P;
+ boolean found;
+ infotype X;
+ 
+ found = false;
+ 
+ printf("					Nama Kucing                  : "); scanf("%s", &X.namaHewan);
+ fflush(stdin);
+ while((P != NULL) && (!found)){
+	if(strcpy (Info(Front(Q)).namaHewan, namaHewan)){
+   	found = true;
+  	}
+  	else{
+   		P = next(P);
+  	}
+ }
+ return found;
+}

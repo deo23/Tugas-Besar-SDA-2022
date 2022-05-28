@@ -20,6 +20,9 @@
 #define InfoRear(Q) (Q).Rear->info
 #define Front(Q) (Q).Front
 #define Rear(Q) (Q).Rear
+#define info(P) (P)->info
+#define next(P) (P)->next
+#define TAIL(Q) (Q).TAIL
 
 typedef struct NodeQueue *addrNQ;
 
@@ -33,6 +36,7 @@ typedef struct{
 	int waktuPelayanan;
 	int waktuSelesai;
 	int prioritas;
+	
 } InfoCustomer;
 typedef InfoCustomer infotype;
 
@@ -164,5 +168,8 @@ void PrintQueue(Queue Q); //Deo
          Jika file ada, program menampilkan isi dari file riwayat-antrian.txt
 */
 void PrintHistory(); //Deo
+
+boolean PrintData(Queue Q, char *namaHewan); //berliana
+
 
 #endif // QUEUE_H
