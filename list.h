@@ -50,13 +50,13 @@ void CreateList(List *L);
 /* F.S  :  Terbentuk  List kosong  	*/
 
 /* Manajeman  memory  			*/
-address Alokasi(infoPenyakit  X);
+address Alloct(infoPenyakit  X);
  /* Mengirimkan  address  hasil alokasi    sebuah elemen */
  /* Jika alokasi  berhasil, maka  address tidak nil, dan misalnya  */
  /* menghasilkan   P,  maka info(P)=X,  Nest(P)=Nil;               */
  /* Jika alokasi  gagal,  mengirimkan  Nil 			   */
 
-void Dealokasi(address *P);
+void DeAlloct(address *P);
 /* I.S  :   P  terdefinisi         	*/
 /* F.S  :   P dikembalikan ke  sistem 	*/
 /*   	    Melakukan  dealokasi, pengembalian address  P */

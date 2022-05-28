@@ -12,7 +12,7 @@
 #define list1_C 
 
 #include "boolean.h"
-#include "LIST1.h"
+#include "list.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -32,11 +32,11 @@ void CreateList(List *L)
 }
 
 /* ********  MANAJEMEN MEMORY  ********* */
-address Alokasi(infoPenyakit  X)
-{/* Mengirimkan  address  hasil alokasi    sebuah elemen */
- /* Jika alokasi  berhasil, maka  address tidak nil, dan misalnya  */
+address Alloct(infoPenyakit  X)
+{/* Mengirimkan  address  hasil Alloct    sebuah elemen */
+ /* Jika Alloct  berhasil, maka  address tidak nil, dan misalnya  */
  /* menghasilkan   P,  maka info(P)=X,  Next(P)=Nil;               */
- /* Jika alokasi  gagal,  mengirimkan  Nil 			   */
+ /* Jika Alloct  gagal,  mengirimkan  Nil 			   */
    address P;
    P=(address)malloc(sizeof(ElmtList));
    if(P!=Nil) { /* Berhasil  */
@@ -46,10 +46,10 @@ address Alokasi(infoPenyakit  X)
    return P;	   
 }
 
-void Dealokasi(address *P)
+void DeAlloct(address *P)
 { /* I.S  : P terdefinisi      				*/
   /* F.S  : P dikembalikan ke  sistem 			*/
-  /*   	    Melakukan dealokasi, pengembalian address P */
+  /*   	    Melakukan deAlloct, pengembalian address P */
     Next(*P)=Nil; 	
     free(*P);	
 }
@@ -80,23 +80,23 @@ boolean FSearch(List L, address P)
 /* ** Penambahan Elemen ** */
 void InsVFirst(List *L, infoPenyakit X)
 {  /* I.S  : L mungkin kosong          */
-   /* F.S  : Melakukan alokasi sebuah elemen dan             */
+   /* F.S  : Melakukan Alloct sebuah elemen dan             */
    /*        menambahkan elemen pertama dengan nilai X jika  */
-   /*        Alokasi berhasil 				     */
-   address P=Alokasi(X);
-   if(P!=Nil) { /* Alokasi Berhasil */
+   /*        Alloct berhasil 				     */
+   address P=Alloct(X);
+   if(P!=Nil) { /* Alloct Berhasil */
       InsertFirst(&(*L),P);
 	}
 }
 
 void InsVLast(List *L, infoPenyakit X)
 { /* I.S  : L mungkin kosong          */
-  /* F.S  : Melakukan alokasi sebuah elemen dan                */
+  /* F.S  : Melakukan Alloct sebuah elemen dan                */
   /*        menambahkan elemen list di akhir; elemen terakhir  */
-  /*        yang baru bernilai X jika alokasi berhasil,        */	
-  /*	    Jika alokasi gagal: I.S = F.S		       */
+  /*        yang baru bernilai X jika Alloct berhasil,        */	
+  /*	    Jika Alloct gagal: I.S = F.S		       */
       	
-     address P=Alokasi(X);
+     address P=Alloct(X);
      if(P!=Nil){
 	 	InsertLast(&(*L),P);
      }
@@ -107,25 +107,25 @@ void InsVLast(List *L, infoPenyakit X)
 void DelVFirst(List *L, infoPenyakit *X)
 { /* I.S    : List tidak kosong  		                 */
   /* F.S    : Elemen pertama List dihapus, nilai info disimpan   */
-  /*	      pada X dan alamat elemen pertama  di-dealokasi 	 */
+  /*	      pada X dan alamat elemen pertama  di-deAlloct 	 */
   /* Kamus */
   address  P;
   
-  DelFirst(&(*L),&P); /* Hapus elemem pertama, blm didealokasi */
+  DelFirst(&(*L),&P); /* Hapus elemem pertama, blm dideAlloct */
   *X=Info(P); 		/* info dari First disimpan di X       */
-  Dealokasi(&P);	  
+  DeAlloct(&P);	  
 }
 
 void DelVLast(List *L, infoPenyakit *X)
 {  /* I.S    : List tidak kosong  		                 */
    /* F.S    : Elemen terakhir list dihapus, nilai info disimpan */
-   /*	      pada X dan alamat elemen terakhir di-dealokasi 	 */
+   /*	      pada X dan alamat elemen terakhir di-deAlloct 	 */
    address P;
    DelLast(&(*L),&P); 
         /* Hapus Elemen Terakhir, addressnya disimpan di P, */
-        /* Belum diDealokasi, masih bisa dibaca isinya      */
+        /* Belum diDeAlloct, masih bisa dibaca isinya      */
    *X=Info(P);	/* Info dari address P, ditampung  */ 
-   Dealokasi(&P);
+   DeAlloct(&P);
 }
 	
 
@@ -133,7 +133,7 @@ void DelVLast(List *L, infoPenyakit *X)
 /* Penambahan Elemen Berdasarkan Alamat 		*/
 
 void InsertFirst(List *L, address P)
-{ /* I.S   : Sembarang, P sudah dialokasi		*/
+{ /* I.S   : Sembarang, P sudah diAlloct		*/
   /* F.S   : Menambahkan elemen ber-address P, sebagai  */
   /*         elemen pertama				*/
     Next(P)=First(*L);
@@ -142,14 +142,14 @@ void InsertFirst(List *L, address P)
 
 void InsertAfter(List *L, address P, address Prec)
 { /* I.S   : Prec pastilah elemen  dan bukan elemen terakhir  */
-  /*         P sudah dialokasi 					  */
+  /*         P sudah diAlloct 					  */
   /* F.S   : Insert P sebagai elemen sesudah elemen beralamat Prec*/
 	Next(P)=Next(Prec);
 	Next(Prec)=P;
 }
 
 void InsertLast(List  *L, address P)
-{ /* I.S   : Sembarang, P sudah dialokasi			*/
+{ /* I.S   : Sembarang, P sudah diAlloct			*/
   /* F.S   : P ditambahkan  sebagai elemen terakhir yang baru	*/
 
       address Last;
@@ -181,7 +181,7 @@ void DelFirst (List *L, address *P)
 /* void DelP(List *L, infotype X)
 { /* I.S   : Sembarang  */
   /* F.S   : Jika ada elemen  list beraddress P,dengan info (P)=X    */
-  /*         Maka P dihapus dari List dan di-dealokasi		     */
+  /*         Maka P dihapus dari List dan di-deAlloct		     */
   /*	     Jika tidak ada elemen List dengan info(P)=X, maka list  */
   /*         tetap. List mungkin menjadi kosomg karena penghapusan   
     address  P=First(*L);
@@ -268,7 +268,7 @@ int NbElmt(List L)
 /***   		PROSES TERHADAP LIST		    ***/
 /******************************************************/
 void DelAll(List *L)
-{ /* Delete semua elemen list, dan alamat elemen di-dealokasi */
+{ /* Delete semua elemen list, dan alamat elemen di-deAlloct */
    infoPenyakit X;
    while(!ListEmpty(*L)) {
 	  DelVFirst(&(*L),&X);
@@ -278,7 +278,7 @@ void DelAll(List *L)
 void CopyList(List L1, List *L2)
 { /* I.S   : L1 sembarang 				*/
   /* F.S   : L1 dan L2 menunjuk ke list yang sama 	*/
-  /*         tidak ada alokasi/dealokasi 		*/
+  /*         tidak ada Alloct/deAlloct 		*/
    *L2=L1;	
 }
 

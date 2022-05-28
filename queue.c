@@ -68,7 +68,151 @@ int IsQueueEmpty(Queue Q){
 /* I.S. Q mungkin kosong atau Q mungkin berisi antrian */
 /* F.S. info baru (data) menjadi Rear yang baru dengan node Rear
 yang lama mengaitkan pointernya ke node yang baru */
-void enQueue(Queue *Q, infotype data); //Deo
+void enQueue(Queue *Q, infotype data){
+	addrNQ P, travel, before, after;
+	//Membuat node baru dengan nama P
+	P = Alokasi(data);
+	//Insert in First Queue
+	if (IsQueueEmpty(*Q) == 1){
+		Front(*Q) = P;
+		Rear(*Q) = P;
+	}
+	//Insert Ketika waktu mulai pada Rear kurang dari waktu kedatangan node baru
+	else if (Info(Rear(*Q)).waktuMulai < Info(P).waktuDatang){
+		Next(Rear(*Q)) = P;
+		Rear(*Q) = P;
+	}
+	//Insert Ketika waktu mulai pada rear lebih dari atau sama dengan waktu kedatangan node baru
+	else if (Info(Rear(*Q)).waktuMulai >= Info(P).waktuDatang){
+		//Jika hanya terdapat 1 node pada queue
+		if(Front(*Q) == Rear(*Q)){
+			//jika waktu kedatangan node baru sama seperti waktu kedatangan front
+			if (Info(P).waktuDatang == Info(Front(*Q)).waktuDatang){
+				//Jika prioritas Front kurang dari node baru
+				if (Info(Front(*Q)).prioritas < Info(P).prioritas){
+					Next(P) = Front(*Q);
+					Front(*Q) = P;
+				}
+				//Jika prioritas Front lebih dari aau sama dengan dari node Baru
+				else {
+					Next(Front(*Q)) = P;
+					Rear(*Q) = P;
+				}
+			}
+			//Jika waktu kedatangan node baru tidak sama dengan waktu kedatangan front
+			else {
+				Next(Front(*Q)) = P;
+				Rear(*Q) = P;
+			}
+		}
+		//Jika terdapat 2 atau lebih node pada queueu
+		else{
+			//Jika waktu kedatangan front sama dengan waktu kedatangan node baru
+			if(Info(P).waktuDatang == Info(Front(*Q)).waktuDatang){
+				//jika prioritas front kurang dari prioritas node baru
+				if (Info(Front(*Q)).prioritas < Info(P).prioritas){
+					Next(P) = Front(*Q);
+					Front(*Q) = P;
+				}
+				//Jika prioritas front lebih dari atau sama dengan prioritas node baru
+				else if (Info(Front(*Q)).prioritas >= Info(P).prioritas){
+					//pointer menunjuk front
+					travel = Front(*Q);
+					//pointer berjalan ke node selanjutnya jika prioritas node baru kurang
+					//dari atau sama dengan prioritas node yang ditunjuk travel, dan node travel
+					//selanjutnya tidak NULL
+					while (Info(P).prioritas <= Info(travel).prioritas && Next(travel)!=NULL){
+						before = travel;
+						travel = Next(travel);
+					}
+					//Kondisi kondisi ketika travel berhenti bergerak (endwhile)
+					if (Info(P).prioritas > Info(travel).prioritas && Next(travel)==NULL){
+						Next(before)=P;
+						Next(P)=travel;
+					}
+					else if (Info(P).prioritas <= Info(travel).prioritas && Next(travel)==NULL){
+						Next(travel) = P;
+						Rear(*Q) = P;
+					}
+					else if (Info(P).prioritas > Info(travel).prioritas && Next(travel)!=NULL){
+						Next(before)=P;
+						Next(P)=travel;
+					}
+				}
+			}
+			//Jika waktu kedatangan node baru tidak sama dengan waktu kedatangan front
+			else if(Info(P).waktuDatang != Info(Front(*Q)).waktuDatang){
+				travel = Front(*Q);
+				//Travel berjalan seperti pada line 133
+				while (Info(travel).waktuDatang == Info(Front(*Q)).waktuDatang && Next(travel)!=NULL){
+					before = travel;
+					travel = Next(travel);
+				}
+				//Kondisi kondisi ketika travel berhenti bergerak (endwhile)
+				if (Info(travel).waktuDatang != Info(Front(*Q)).waktuDatang && Next(travel)==NULL){
+					if (Info(travel).prioritas < Info(P).prioritas){
+						Next(before) = P;
+						Next(P) = travel;
+					}
+					else {
+						Next(travel) = P;
+						Rear(*Q) = P;
+					}
+				}
+				else if (Next(travel)==NULL){
+					Next(travel) = P;
+					Rear(*Q) = P;
+				}
+				else if (Info(travel).waktuDatang != Info(Front(*Q)).waktuDatang){
+					if (Info(travel).prioritas < Info(P).prioritas){
+						Next(before) = P;
+						Next(P) = travel;
+					}
+					else {
+						//travel berjalan pada node yang waktu kedatangannya tidak sama dengan front
+						while (Info(travel).prioritas >= Info(P).prioritas && Next(travel)!=NULL){
+							before = travel;
+							travel = Next(travel);
+						}
+						//kondisi ketika travel bergerak dan berhenti di tengah queue (bukan rear)
+						if (Next(travel)!=NULL){
+							after = Next(travel);
+							if (Info(travel).prioritas <= Info(P).prioritas){
+								Next(before)=P;
+								Next(P)=travel;
+							}
+							else {
+								//travel akan berjalan lagi hingga urutan belakang pada prioritas yang sama
+								// dengan node baru
+								while (Info(travel).prioritas <= Info(after).prioritas){
+									if (Info(travel).prioritas > Info(after).prioritas){
+										Next(P)=after;
+										Next(travel) = P;
+									}
+									travel = after;
+									after = Next(after);
+								}
+							}
+
+						}
+						//kondisi ketika travel sudah bergerak higga rear dan berhenti di rear
+						else if (Next(travel)==NULL){
+							if(Info(travel).prioritas < Info(P).prioritas){
+								Next(before)=P;
+								Next(P) = travel;
+								Rear(*Q) = travel;
+							}
+							else if(Info(travel).prioritas >= Info(P).prioritas){
+								Next(travel) = P;
+								Rear(*Q) = P;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
 
 
 /* Proses: Mengambil info pada Front(Q) dan mengeluarkannya dari
@@ -98,9 +242,9 @@ void deQueue(Queue *Q){
 		printf("Antrian Berikutnya : %s\n", Info(P).namaHewan);
 		printf("Silahkan Menuju Ruang Pemeriksaan\n");
 
-		EntryHistoryFile(P);
+		
 		Dealokasi(&P);
-		EntryQueueFile(Q);
+		
 	}
 }
 
@@ -207,20 +351,20 @@ void setTime (Queue *Q){
 	if (Front(*Q) == Rear(*Q)){
 		Info(temp).waktuTunggu = 0;
 		Info(temp).waktuMulai = Info(temp).waktuDatang;
-		Info(temp).waktuAkhir = Info(temp).waktuMulai + Info(temp).waktuEstimasi;
+		Info(temp).waktuSelesai = Info(temp).waktuMulai + Info(temp).waktuPelayanan;
 	} else {
 		do {
 			if(temp == Front(*Q)){
 				Info(temp).waktuTunggu = 0;
 				Info(temp).waktuMulai = Info(temp).waktuDatang;
-				Info(temp).waktuAkhir = Info(temp).waktuMulai + Info(temp).waktuEstimasi;
+				Info(temp).waktuSelesai = Info(temp).waktuMulai + Info(temp).waktuPelayanan;
 			} else {
-				if(prev->info.waktuAkhir > Info(temp).waktuDatang){
-					Info(temp).waktuTunggu = prev->info.waktuAkhir - Info(temp).waktuDatang;
+				if(prev->info.waktuSelesai > Info(temp).waktuDatang){
+					Info(temp).waktuTunggu = prev->info.waktuSelesai - Info(temp).waktuDatang;
 				}
 				else Info(temp).waktuTunggu = 0;
 				Info(temp).waktuMulai = Info(temp).waktuTunggu + Info(temp).waktuDatang;
-				Info(temp).waktuAkhir = Info(temp).waktuMulai + Info(temp).waktuEstimasi;
+				Info(temp).waktuSelesai = Info(temp).waktuMulai + Info(temp).waktuPelayanan;
 			}
 			prev = temp;
 			temp = Next(temp);
@@ -266,7 +410,7 @@ void Registrasi(Queue *Q){
 	for (i=0; i<totalPenyakit; i++){
 		Y.Penyakit = tempPenyakit[i];
 		strcpy(Y.kategori, kategoriPenyakit(tempPenyakit[i]));
-		Y.waktuEstimasi = PeriksaWaktuEstimasi(tempPenyakit[i]);
+		Y.waktuEstimasi = cekWaktuPelayanan(tempPenyakit[i]);
 		InsVLast(&X.listPenyakit, Y);
 		
 		if ((tempPenyakit[i]>0) && (tempPenyakit[i]<4)){
@@ -279,10 +423,10 @@ void Registrasi(Queue *Q){
 			countB++;
 		}
 	}
-	X.nilaiPrioritas = HitungNilaiPrioritas(countR, countS, countB);
-	X.waktuEstimasi = HitungWaktuEstimasi(countR, countS, countB);
+	X.prioritas = hitungPrioritas(countR, countS, countB);
+	X.waktuPelayanan = hitungWaktuPelayanan(countR, countS, countB);
 	enQueue(Q, X);
-	HitungWaktu(*(&Q));
+	setTime(*(&Q));
 
 	printf("\n");
 	printf("					 *** Anda Sudah Terdaftar! *** \n\n");
@@ -294,28 +438,41 @@ void Registrasi(Queue *Q){
    F.S : Jika file tersebut tidak ada, program mengirimkan pesan eror
   		 Jika ada, program akan meng-overwrite data-data queue
 */
-void EntryQueueFile(Queue *Q); //Deo
 
-/* Proses : Memasukkan data-data queue yang terhapus ke dalam file riwayat-antrian.txt
-  		   secara berurutan
-   I.S : File mungkin kosong atau tidak ada
-   F.S : Jika file tersebut tidak ada, program mengirimkan pesan eror
-  		 Jika file ada, program akan memasukkan data-data queue yang terhapus tanpa menimpa data
-  		 sebelumnya
-*/
-void EntryHistoryFile(addrNQ P); //Deo
+void PrintQueue(Queue Q){
+	system ("cls");
+	addrNQ P;
+	
+	int i=1, j;
+	int lenght;
+	
+	P = Q.Front;
+		
+	printf("					====================================\n");
+	printf("						      Daftar Antrian\n");
+	printf("					====================================\n");
+		
+	if(IsQueueEmpty(Q)){
+		printf("\n					* Tidak Ada Antrian yang Terdaftar *\n\n");
+	} else {
+		while(P != Nil){
+			printf("					No. Antrian                 : %d\n", i++);
+			printf("					Nama Hewan                  : %s\n", (P)->info.namaHewan);
+			printf("					Datang di menit ke          : %d\n", (P)->info.waktuDatang);
+			puts("					Penyakit yang Diderita      :");
+			PrintInfo(P->info.listPenyakit, arrPenyakit);
+			printf("					Nilai Prioritas             : %d\n", (P)->info.prioritas);
+			printf("					Estimasi Waktu Pelayanan    : %d\n", (P)->info.waktuPelayanan);
+			printf("					Waktu Tunggu Pelayanan      : %d\n", (P)->info.waktuTunggu);
+			printf("					Waktu Mulai Pelayanan       : %d\n", (P)->info.waktuMulai);
+			printf("					Waktu Selesai Pelayanan     : %d\n", (P)->info.waktuSelesai);
+			
+			printf("					------------------------------------\n");
+			
+			P = Next(P);
+		}		
+	}
+}
 
-/* Proses : Membaca seluruh isi file daftar-antrian.txt
-   I.S : File mungkin tidak ada atau mungkin ada
-   F.S : Jika file tidak ditemukan, program mengirimkan pesan eror
-         Jika file ada, program menampilkan isi dari file daftar-antrian.txt
-*/
-void PrintQueue(Queue Q); //Deo
-
-/* Proses : Membaca seluruh isi file riwayat-antrian.txt
-   I.S : File mungkin tidak ada atau mungkin ada
-   F.S : Jika file tidak ditemukan, program mengirimkan pesan eror
-         Jika file ada, program menampilkan isi dari file riwayat-antrian.txt
-*/
 void PrintHistory(); //Deo
 
