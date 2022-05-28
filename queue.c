@@ -253,7 +253,7 @@ void Registrasi(Queue *Q){
 	printf("					====================================\n");
 	printf("					Nama Hewan                  : "); scanf("%s", &X.namaHewan);
 	fflush(stdin);
-	printf("					Datang pada pukul           : "); scanf("%d:%d", &X.waktuDatang.hour, &X.waktuDatang.min);
+	printf("					Datang pada pukul           : "); scanf("%02d:%02d", &X.waktuDatang.hour, &X.waktuDatang.min);
 	fflush(stdin);
 	
 	printf("\n");
@@ -321,14 +321,14 @@ void PrintQueue(Queue Q){
 		while(P != Nil){
 			printf("					No. Antrian                 : %d\n", i++);
 			printf("					Nama Hewan                  : %s\n", (P)->info.namaHewan);
-			printf("					Datang pada pukul           : %d:%d\n", (P)->info.waktuDatang.hour, (P)->info.waktuDatang.min);
+			printf("					Datang pada pukul           : %02d:%02d\n", (P)->info.waktuDatang.hour, (P)->info.waktuDatang.min);
 			puts("					Penyakit yang Diderita      :");
 			PrintInfo(P->info.listPenyakit, arrPenyakit);
 			printf("					Nilai Prioritas             : %d\n", (P)->info.prioritas);
-			printf("					Estimasi Waktu Pelayanan    : %d:%d\n", (P)->info.waktuPelayanan.hour, (P)->info.waktuPelayanan.min);
-			printf("					Waktu Tunggu Pelayanan      : %d:%d\n", (P)->info.waktuTunggu.hour, (P)->info.waktuTunggu.min);
-			printf("					Waktu Mulai Pelayanan       : %d:%d\n", (P)->info.waktuMulai.hour, (P)->info.waktuMulai.min);
-			printf("					Waktu Selesai Pelayanan     : %d:%d\n", (P)->info.waktuSelesai.hour, (P)->info.waktuSelesai.min);
+			printf("					Estimasi Waktu Pelayanan    : %02d:%02d\n", (P)->info.waktuPelayanan.hour, (P)->info.waktuPelayanan.min);
+			printf("					Waktu Tunggu Pelayanan      : %02d:%02d\n", (P)->info.waktuTunggu.hour, (P)->info.waktuTunggu.min);
+			printf("					Waktu Mulai Pelayanan       : %02d:%02d\n", (P)->info.waktuMulai.hour, (P)->info.waktuMulai.min);
+			printf("					Waktu Selesai Pelayanan     : %02d:%02d\n", (P)->info.waktuSelesai.hour, (P)->info.waktuSelesai.min);
 			
 			printf("					------------------------------------\n");
 			
