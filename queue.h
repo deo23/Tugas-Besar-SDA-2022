@@ -128,13 +128,12 @@ int hitungWaktuPelayanan(int Ringan, int Sedang, int Berat); //Berliana
    F.S : Nilai semua waktu berubah seiring adanya perubahan urutan queue
 */
 void setTime(Queue *Q); //Suci
-void setTimePertama(Queue *Q);
 
 /* Proses : Menampilkan menu registrasi dan menerima masukan pengguna yang akan dimasukkan ke dalam Queue
    I.S : Data queue belum dimasukkan
    F.S : Data dari inputan pengguna dimasukkan ke dalam queue dan menampilkan isi daftar antrian
 */
-void Registrasi(Queue *Q); //Deo
+void Registration(Queue *Q); //Deo
 
 /* Proses : Memasukkan data-data queue yang terinput ke dalam file daftar-antrian.txt
            dan mengubah seluruh isi file seiring terjadinya perubahan urutan

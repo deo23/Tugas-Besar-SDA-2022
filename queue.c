@@ -8,8 +8,6 @@
 #include <stdio.h>
 #include "queue.h"
 #include "time.h"
-
-time latestSelesai;
 /***** Manajemen memori *****/
 /* Mengirimkan address hasil alokasi sebuah elemen dengan info X.
 * Jika alokasi berhasil, modul mengembalikan P; Info(P) = X,
@@ -96,26 +94,29 @@ Queue dengan aturan FIFO dan memasukkan data yang terhapus ke dalam file*/
 /* F.S. info yang diambil = nilai elemen Front pd I.S. */
 /* Front(Q) menunjuk ke next antrian atau diset menjadi NIll, Q
 mungkin kosong */
-
 void deQueue(Queue *Q){
-	addrNQ P;
-	
 	if(IsQueueEmpty(*Q)){
 		puts("============================================");
 		printf("Maaf Antrian Kosong.\n");
 	}
-	else{
+	else {
+		addrNQ P;
 		P = Front(*Q);
-		if(Next(P) == Nil){
-			Front(*Q) = Nil;
+		if (Next(Front(*Q)) == Nil){
+			Front(*Q)=NULL;
 		}
 		else{
 			Front(*Q) = Next(Front(*Q));
 		}
-		Next(P) = Nil;
-		latestSelesai.hour = Info(P).waktuSelesai.hour;
-		latestSelesai.min = Info(P).waktuSelesai.min;
+		Next(P)=NULL;
+
+		printf("============================================\n");
+		printf("Antrian Berikutnya : %s\n", Info(P).namaHewan);
+		printf("Silahkan Menuju Ruang Pemeriksaan\n");
+
+		
 		Dealokasi(&P);
+		
 	}
 }
 
@@ -218,64 +219,21 @@ void setTime(Queue *Q){
 	addrNQ P, prev;
 	
 	P = Front(*Q);
-	if((latestSelesai.hour == 0 && latestSelesai.min == 0) || compareTime(latestSelesai, Info(P).waktuDatang)==0){
-		Info(P).waktuTunggu.hour = 0;
-		Info(P).waktuTunggu.min = 0;
-		Info(P).waktuMulai.hour = Info(P).waktuDatang.hour;
-		Info(P).waktuMulai.min = Info(P).waktuDatang.min;
-	}
-	else{
-		Info(P).waktuTunggu = substractTime(latestSelesai, Info(P).waktuDatang) ;
-		Info(P).waktuMulai.hour = latestSelesai.hour;
-		Info(P).waktuMulai.min = latestSelesai.min;
-	}
-	
-	Info(P).waktuSelesai = addTime(Info(P).waktuMulai, Info(P).waktuPelayanan);
+	Info(P).waktuTunggu.hour = 0;
+	Info(P).waktuTunggu.min = 0;
+	Info(P).waktuMulai.hour = Info(P).waktuDatang.hour;
+	Info(P).waktuMulai.min = Info(P).waktuDatang.min;
+	Info(P).waktuSelesai = addTime(Info(P).waktuMulai, Info(P).waktuPelayanan) ;
 	prev = P;
 	P = Next(P);
 	while(P != Nil){
-		Info(P).waktuTunggu = substractTime(Info(prev).waktuSelesai, Info(P).waktuDatang);
-		Info(P).waktuMulai = addTime(Info(P).waktuTunggu, Info(P).waktuDatang);
-		Info(P).waktuSelesai = addTime(Info(P).waktuMulai, Info(P).waktuPelayanan);
+		Info(P).waktuTunggu = substractTime(Info(prev).waktuSelesai, Info(P).waktuDatang) ;
+		Info(P).waktuMulai = addTime(Info(P).waktuTunggu, Info(P).waktuDatang) ;
+		Info(P).waktuSelesai = addTime(Info(P).waktuMulai, Info(P).waktuPelayanan) ;
 		prev = P;
 		P = Next(P);
 	}
 }
-//void setTime(Queue *Q){
-//	addrNQ travel, before;
-//
-//	travel=(*Q).Front;
-//
-//	if (Next(Front(*Q)) == Nil){
-//		Info(travel).waktuTunggu.hour = 0;
-//        Info(travel).waktuTunggu.min = 0;
-//		Info(travel).waktuMulai.hour = Info(travel).waktuDatang.hour;
-//        Info(travel).waktuMulai.min = Info(travel).waktuDatang.min;
-//		Info(travel).waktuSelesai = addTime(Info(travel).waktuMulai, Info(travel).waktuPelayanan) ;
-//	}
-//	else {
-//		while(travel!=NULL){
-//			if (travel==Front(*Q)){
-//				Info(travel).waktuTunggu.hour = 0;
-//                Info(travel).waktuTunggu.min = 0;
-//				Info(travel).waktuMulai.hour = Info(travel).waktuDatang.hour;
-//                Info(travel).waktuMulai.min = Info(travel).waktuDatang.min;
-//				Info(travel).waktuSelesai = addTime(Info(travel).waktuMulai, Info(travel).waktuPelayanan) ;
-//			}
-//			else{
-//				if(compareTime(Info(before).waktuSelesai, Info(travel).waktuDatang) == 1){
-//					Info(travel).waktuTunggu = substractTime(Info(before).waktuSelesai, Info(travel).waktuDatang) ;
-//				}
-//				else Info(travel).waktuTunggu.hour = 0;
-//        		Info(travel).waktuTunggu.min = 0;
-//				Info(travel).waktuMulai = addTime(Info(travel).waktuTunggu, Info(travel).waktuDatang) ;
-//				Info(travel).waktuSelesai = addTime(Info(travel).waktuMulai, Info(travel).waktuPelayanan) ;
-//			}
-//			before = travel;
-//			travel = travel->next;
-//		}
-//	}
-//}
 
 /* Proses : Menampilkan menu registrasi dan menerima masukan pengguna yang akan dimasukkan ke dalam Queue
    I.S : Data queue belum dimasukkan
@@ -289,7 +247,6 @@ void Registrasi(Queue *Q){
 	
 	int tempPenyakit[9];
 	int i, totalPenyakit;
-	
 	
 	printf("					====================================\n");
 	printf("					              Registrasi\n");
@@ -333,9 +290,7 @@ void Registrasi(Queue *Q){
 	X.waktuPelayanan.min = hitungWaktuPelayanan(countR, countS, countB);
 	X.waktuPelayanan.hour = 0;
 	enQueue(Q, X);
-
 	setTime(*(&Q));
-	
 
 	printf("\n");
 	printf("					 *** Anda Sudah Terdaftar! *** \n\n");
@@ -379,54 +334,6 @@ void PrintQueue(Queue Q){
 			
 			P = Next(P);
 		}		
-	}
-}
-
-void prosesAntrian(Queue *Q){
-	system ("cls");
-	addrNQ P;
-	infotype R;	
-	int i=1;
-	char pilih;
-	
-	P = (*Q).Front;
-	
-	printf("					====================================\n");
-	printf("						   Proses Antrian\n");
-	printf("					====================================\n");
-	
-	if (P == Nil) { // Jika Queue Kosong
-		printf("\n					* Tidak Ada Antrian yang Terdaftar *\n\n");
-    } else {
-		while(P != Nil){
-			printf("					No. Antrian                 : %d\n", i++);
-			printf("					Nama Hewan                  : %s\n", (P)->info.namaHewan);
-			printf("					Datang pada pukul           : %02d:%02d\n", (P)->info.waktuDatang.hour, (P)->info.waktuDatang.min);
-			puts("					Penyakit yang Diderita      :");
-			PrintInfo(P->info.listPenyakit, arrPenyakit);
-			printf("					Nilai Prioritas             : %d\n", (P)->info.prioritas);
-			printf("					Estimasi Waktu Pelayanan    : %02d:%02d\n", (P)->info.waktuPelayanan.hour, (P)->info.waktuPelayanan.min);
-			printf("					Waktu Tunggu Pelayanan      : %02d:%02d\n", (P)->info.waktuTunggu.hour, (P)->info.waktuTunggu.min);
-			printf("					Waktu Mulai Pelayanan       : %02d:%02d\n", (P)->info.waktuMulai.hour, (P)->info.waktuMulai.min);
-			printf("					Waktu Selesai Pelayanan     : %02d:%02d\n", (P)->info.waktuSelesai.hour, (P)->info.waktuSelesai.min);
-			
-			printf("					------------------------------------\n");
-			P = Next(P);
-			R = InfoFront(*Q);
-			printf("					Memulai Proses Pelayanan Untuk %s? [Y/N] ", R.namaHewan);
-			fflush(stdin);
-			scanf("%c", &pilih);
-			
-			if(pilih == 'Y' || pilih == 'y'){
-				deQueue(Q);
-				printf("\n");
-				printf("					       *** Harap bersabar ***\n");
-				printf("					  *** Hewan Anda Sedang Diobati ***\n\n");
-			} 
-			else if(pilih == 'N' || pilih == 'n'){
-				printf("					***  Silahkan Kembali Ke Antrian ***\n");
-			}
-		}
 	}
 }
 

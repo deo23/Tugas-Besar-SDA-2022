@@ -8,10 +8,6 @@ time substractTime(time start, time end) {
    }
    diff.min = start.min - end.min;
    diff.hour = start.hour - end.hour;
-   if (diff.hour < 0){
-   	diff.hour = 0;
-   	diff.min = 0;
-   }
    return diff;
 }
 
