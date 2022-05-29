@@ -1,11 +1,9 @@
 /* File :  LIST1.C 
  * Desk :  Deklarasi list berkait dgn representasi fisik pointer. Representasi address dgn pointer
  * Oleh :  ANI RAHMANI / 23501007 
- *Modified: Berliana Elfada
-            Muhammad Deo Audha Rizki
-            Suci Awalia Gardara
- *Date Modified : 19 Mei 2022
- *Version: 1.0
+ * Tgl  :  25/10/01	
+ * Modifikasi : Hilma Sri Rahayu
+ * Tanggal : 21/07/21
  */	  
 
 /* body dari List1.h */
