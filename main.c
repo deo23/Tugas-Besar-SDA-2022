@@ -12,7 +12,7 @@
 #include "queue.h"
 
 int main (){
-
+	system("cls");
 	Queue Q;
 	CreateQueue(&Q);
 	
@@ -21,9 +21,11 @@ int main (){
 	char empty;
  int panjang;
  
- printf("%35.c%c",empty,254);
+ 
+	do{
+		printf("%35.c%c",empty,254);
  printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"); printf("%c", 254);
-  printf("\n%35.c%c%18.c  ___   ______       _______     __         _____      _____",empty,254,empty);printf("%3.c",empty);printf("%19.c%c\n",empty,254);
+ printf("\n%35.c%c%18.c  ___   ______       _______     __         _____      _____",empty,254,empty);printf("%3.c",empty);printf("%19.c%c\n",empty,254);
  printf("%35.c%c%18.c //       ||     ||    ||       //%c%c       //         //   %c%c",empty,254,empty,92,92,92,92,92,92,92,92,92,92);printf("%3.c",empty);printf("%18.c%c\n",empty,254);
  printf("%35.c%c%18.c %c%c__     ||     ||    ||      //__%c%c     //         //     %c%c",empty,254,empty,92,92,92,92,92,92,92,92,92,92,92);printf("%3.c",empty);printf("%17.c%c\n",empty,254);
  printf("%35.c%c%18.c    %c%c    ||     ||    ||     //    %c%c    %c%c         %c%c     //",empty,254,empty,92,92,92);printf("%3.c",empty);printf("%17.c%c\n",empty,254);
@@ -39,9 +41,7 @@ int main (){
  printf("%19.c       &&      &&/        &&             &&            /&&   &&          /&& &&           &&      &&/       &&   &&          &&   ",empty,empty);printf("%20.c\n",empty);
  printf("%19.c        &&    &&/         &&             &&            /&&   &&          /&&  &&           &&    &&/        &&   &&          &&   ",empty,empty);printf("%20.c\n",empty);
  printf("%19.c         &&&&&&/          &&&&&&&&&&     &&      &&&&&&&//   &&&&&&&&&   /&&    &&          &&&&&&/         &&   &&&&&&&&&   &&&&&&&",empty,empty);printf("%20.c\n",empty); 
- 
- 
-	do{
+
 	    
 	    printf("\n\n\n\n");
 		printf("%67.c------------------------------------\n",empty);
@@ -53,18 +53,21 @@ int main (){
 		printf("%67.c  [4] Panggil Antrean            \n",empty);
 		printf("%67.c  [5] Keluar                     \n",empty);
 		printf("%67.c====================================\n\n",empty);	
-	    printf("%67.c Menu Pilihan : "); scanf(" %c", &menuPilihan);
+	    printf("%67.c Menu Pilihan : ",empty); scanf(" %c", &menuPilihan);
+
     	
-    	    if(menuPilihan == '1'){
+    	if(menuPilihan == '1'){
     		
     		Registrasi(&Q);
-    		system("pause");	
+    		system("pause");
+			system("cls");
 		
 		}
 		else if(menuPilihan == '2'){
 		
 			PrintQueue(Q);
 			system("pause");
+			system("cls");
 
 		}
 		else if(menuPilihan == '3'){
@@ -76,8 +79,9 @@ int main (){
 		else if(menuPilihan == '4'){
 			
 		
-			deQueue(&Q);
+			prosesAntrian(&Q);
 			system("pause");
+			system("cls");
 
 		}else if(menuPilihan == '5'){
 			
@@ -103,5 +107,3 @@ int main (){
 	return 0;
 
 }
-
-
