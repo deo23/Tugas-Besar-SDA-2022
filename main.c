@@ -1,8 +1,9 @@
 /* Program : main.c
  * Deskripsi : main driver Aplikasi Layanan Dokter Hewan
- * Nama : Hilma Sri Rahayu
- * Tanggal : 22 Juli 2021
- * Update : 1 Agustus 2021
+ * Modified	:   Berliana Elfada
+                Muhammad Deo Audha Rizki
+                Suci Awalia Gardara
+ *Date Modified : 39 Mei 2022
  */
 
 #include <stdio.h>
@@ -84,14 +85,14 @@ int main (){
 			printf("\n");
 			printf("					====================================\n");
 			printf("					||       Masukan Anda Salah       ||\n");
-			printf("					||       Masukan Angka 1-4!       ||\n");
+			printf("					||       Masukan Angka 1-5!       ||\n");
 			printf("					||       Silakan Coba Lagi        ||\n");
 			printf("					====================================\n");
 			system("pause");
 	
 		}
 	
-	} while(menuPilihan != '4');
+	} while(menuPilihan != '5');
 	
 	return 0;
 
