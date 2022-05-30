@@ -19,7 +19,9 @@ int main (){
 	char menuPilihan;
 	
 	char empty;
- int panjang;
+ 	int panjang;
+ 	addrNQ P;
+
  
  
 	do{
@@ -70,15 +72,19 @@ int main (){
 			system("cls");
 
 		}
-		else if(menuPilihan == '3'){
+		else if(menuPilihan == '3'){	
 			
-			
-		
-
+			P = cariData(Q);
+			if(P != Nil){
+				PrintNode(P);
+			}else{
+				printf(" Data tidak ada !");
+			}
+			system("pause");
+			system("cls");
 		}
 		else if(menuPilihan == '4'){
 			
-		
 			prosesAntrian(&Q);
 			system("pause");
 			system("cls");

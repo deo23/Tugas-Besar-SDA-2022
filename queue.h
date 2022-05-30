@@ -142,5 +142,7 @@ void Registrasi(Queue *Q); //Deo
    F.S : Jika file tersebut tidak ada, program mengirimkan pesan eror
   		 Jika ada, program akan meng-overwrite data-data queue
 */
+addrNQ cariData (Queue Q);
+void PrintNode(addrNQ P);
 
 #endif // QUEUE_H

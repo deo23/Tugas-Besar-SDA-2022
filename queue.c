@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include "queue.h"
 #include "time.h"
+#include <string.h>
 
 time latestSelesai;
 /***** Manajemen memori *****/
@@ -430,4 +431,38 @@ void prosesAntrian(Queue *Q){
 	}
 }
 
+addrNQ cariData (Queue Q){
+	
+	addrNQ P = Front(Q);
+	boolean ketemu;
+	char namaHewan[25];
+	
+	
+	printf("Nama Kucing : ");
+	scanf("%s", &namaHewan);
+	fflush(stdin);
+	while((P != NULL) && (!ketemu)){
+		if(strcmp(P->info.namaHewan, namaHewan) == 0){
+			return P;
+		}
+		P = Next(P);	
+	}
+	return Nil;
+} 
+
+void PrintNode(addrNQ P){
+    if(P != Nil){
+            printf("\n                    Nama Hewan                  : %s\n", (P)->info.namaHewan);
+            printf("                    Datang pada pukul           : %02d:%02d\n", (P)->info.waktuDatang.hour, (P)->info.waktuDatang.min);
+            puts("                    Penyakit yang Diderita      :");
+            PrintInfo(P->info.listPenyakit, arrPenyakit);
+            printf("                    Nilai Prioritas             : %d\n", (P)->info.prioritas);
+            printf("                    Estimasi Waktu Pelayanan    : %02d:%02d\n", (P)->info.waktuPelayanan.hour, (P)->info.waktuPelayanan.min);
+            printf("                    Waktu Tunggu Pelayanan      : %02d:%02d\n", (P)->info.waktuTunggu.hour, (P)->info.waktuTunggu.min);
+            printf("                    Waktu Mulai Pelayanan       : %02d:%02d\n", (P)->info.waktuMulai.hour, (P)->info.waktuMulai.min);
+            printf("                    Waktu Selesai Pelayanan     : %02d:%02d\n", (P)->info.waktuSelesai.hour, (P)->info.waktuSelesai.min);
+
+            printf("                    ------------------------------------\n");
+    }
+}
 
