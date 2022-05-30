@@ -1,12 +1,14 @@
-/* File :  LIST1.C 
+/* File :  list.c
  * Desk :  Deklarasi list berkait dgn representasi fisik pointer. Representasi address dgn pointer
  * Oleh :  ANI RAHMANI / 23501007 
  * Tgl  :  25/10/01	
- * Modifikasi : Hilma Sri Rahayu
- * Tanggal : 21/07/21
+ * Modifikasi : Berliana Elfada
+ 				Muhammad Deo Audha Rizki
+ 				Suci Awalia Gardara
+ * Tanggal : 30/05/22
+   Version : 1.0
  */	  
 
-/* body dari List1.h */
 
 #ifndef list1_C
 #define list1_C 
@@ -16,28 +18,31 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-/* ** Prototype   **  */
-/* ** Test List Kosong **  */
+/*********** PROTOTYPE ****************/
+/**** Predikat untuk test keadaan LIST  ****/
 boolean ListEmpty(List  L)                        
 {  /*  Mengirim true jika List kosong  */
 
    	return(First(L)==Nil);	
 }
 
-/* Pembuatan  List Kosong  */
+/**** Konstruktor/Kreator List Kosong ****/
 void CreateList(List *L)
 {  /* I.S  :  Sembarang    		*/
    /* F.S  :  Terbentuk  List kosong  	*/
    First(*L)=Nil;
 }
 
-/* ********  MANAJEMEN MEMORY  ********* */
+/**** Manajemen Memory ****/
 address Alloct(infoPenyakit  X)
 {/* Mengirimkan  address  hasil Alloct    sebuah elemen */
  /* Jika Alloct  berhasil, maka  address tidak nil, dan misalnya  */
  /* menghasilkan   P,  maka info(P)=X,  Next(P)=Nil;               */
  /* Jika Alloct  gagal,  mengirimkan  Nil 			   */
+ 	//Kamus Lokal
    address P;
+   
+   //Algoritma
    P=(address)malloc(sizeof(ElmtList));
    if(P!=Nil) { /* Berhasil  */
    		Info(P)=X;
@@ -54,16 +59,17 @@ void DeAlloct(address *P)
     free(*P);	
 }
 
-/*   ** PENCARIAN SEBUAH ELEMEN LIST **   */   
+/**** Pencarian sebuah elemen List ****/
 
 boolean FSearch(List L, address P)
 { /* Mencari apakah ada elemen List yang beralamat P  */
   /* Mengirimkan true jika ada, false jika tidak ada  */
   /* List Tidak mungkin kosong  */
-
+	//Kamus Lokal
   address PTemp=First(L);
   boolean found=false;
   
+  //Algoritma
   while((PTemp!=Nil)&&(!found)){
     if(PTemp==P) {
 		found=true;
@@ -75,15 +81,17 @@ boolean FSearch(List L, address P)
   return found;
 }
 
-/* ** PRIMITIF BERDASARKAN NILAI ** */
-
-/* ** Penambahan Elemen ** */
+/**** PRIMITIF BERDASARKAN NILAI ****/
+/**** Penambahan Elemen ****/
 void InsVFirst(List *L, infoPenyakit X)
 {  /* I.S  : L mungkin kosong          */
    /* F.S  : Melakukan Alloct sebuah elemen dan             */
    /*        menambahkan elemen pertama dengan nilai X jika  */
    /*        Alloct berhasil 				     */
+   //Kamus Lokal
    address P=Alloct(X);
+   
+   //Algoritma
    if(P!=Nil) { /* Alloct Berhasil */
       InsertFirst(&(*L),P);
 	}
@@ -95,23 +103,26 @@ void InsVLast(List *L, infoPenyakit X)
   /*        menambahkan elemen list di akhir; elemen terakhir  */
   /*        yang baru bernilai X jika Alloct berhasil,        */	
   /*	    Jika Alloct gagal: I.S = F.S		       */
-      	
+    //Kamus Lokal
      address P=Alloct(X);
+     
+    //Algoritma
      if(P!=Nil){
 	 	InsertLast(&(*L),P);
      }
 }
 
-/* *** Penghapusan Elemen  ***  */
+/**** Penghapusan Elemen ****/
 
 void DelVFirst(List *L, infoPenyakit *X)
 { /* I.S    : List tidak kosong  		                 */
   /* F.S    : Elemen pertama List dihapus, nilai info disimpan   */
   /*	      pada X dan alamat elemen pertama  di-deAlloct 	 */
-  /* Kamus */
+  //Kamus Lokal
   address  P;
   
-  DelFirst(&(*L),&P); /* Hapus elemem pertama, blm dideAlloct */
+  //Algoritma
+  DelFirst(&(*L),&P); /* Hapus elemen pertama, blm dideAlloct */
   *X=Info(P); 		/* info dari First disimpan di X       */
   DeAlloct(&P);	  
 }
@@ -120,16 +131,17 @@ void DelVLast(List *L, infoPenyakit *X)
 {  /* I.S    : List tidak kosong  		                 */
    /* F.S    : Elemen terakhir list dihapus, nilai info disimpan */
    /*	      pada X dan alamat elemen terakhir di-deAlloct 	 */
+   //Kamus Lokal
    address P;
    DelLast(&(*L),&P); 
-        /* Hapus Elemen Terakhir, addressnya disimpan di P, */
-        /* Belum diDeAlloct, masih bisa dibaca isinya      */
-   *X=Info(P);	/* Info dari address P, ditampung  */ 
+   
+	//Algoritma    
+   *X=Info(P);	
    DeAlloct(&P);
 }
 	
 
-/* *******  PRIMITIF BERDASARKAN ALAMAT ********	*/
+/**** PRIMITIF BERDASARKAN ALAMAT ****/
 /* Penambahan Elemen Berdasarkan Alamat 		*/
 
 void InsertFirst(List *L, address P)
@@ -151,8 +163,10 @@ void InsertAfter(List *L, address P, address Prec)
 void InsertLast(List  *L, address P)
 { /* I.S   : Sembarang, P sudah diAlloct			*/
   /* F.S   : P ditambahkan  sebagai elemen terakhir yang baru	*/
-
+		//Kamus Lokal
       address Last;
+      
+      //Algoritma
       if(ListEmpty(*L)) { /* Jika kosong, Insert elemen pertama */
 	   InsertFirst(&(*L),P);     
       } else { /* tdk kosong */
@@ -178,22 +192,6 @@ void DelFirst (List *L, address *P)
     
  }
 
-/* void DelP(List *L, infotype X)
-{ /* I.S   : Sembarang  */
-  /* F.S   : Jika ada elemen  list beraddress P,dengan info (P)=X    */
-  /*         Maka P dihapus dari List dan di-deAlloct		     */
-  /*	     Jika tidak ada elemen List dengan info(P)=X, maka list  */
-  /*         tetap. List mungkin menjadi kosomg karena penghapusan   
-    address  P=First(*L);
-
-    while((Next(P)!=Nil) && (Info(P)!=X)){
-          P=Next(P);
-    } /*Next(P)=Nil or Info(P)= X 
-    
-    if(Info(P)==X) {
-       Dealloct(&P);
-    }
-} */
 
 void DelLast(List *L, address *P)
 { /* I.S   : List tidak kosong  */
@@ -202,9 +200,10 @@ void DelLast(List *L, address *P)
   /*         Last elemen baru adalah predessesor elemen pertama yang  */
   /*         lama, jika  ada					      */
   
-  /* Kamus */     	
+  //Kamus Lokal   	
   address Last,PrecLast;
   
+  //Algoritma
   Last=First(*L);
   /* dari catatan di kelas */	
   if(Next(Last)==Nil)  { /* hanya 1 elemen */
@@ -235,7 +234,11 @@ void PrintInfo(List L, char **C)
   /* F.S   : Jika list tidak kosong, semua info yang disimpan pada */
   /*         elemen list di-print			  	   */
   /*         Jika list kosong, hanya menuliskan "List Kosong"	   */
+  
+  //Kamus Lokal
   address P=First(L);
+  
+  //Algoritma
   if( P==Nil) { 
   	  printf("List Kosong !\n");
   } else { /* List tidak kosong */
@@ -250,7 +253,11 @@ void PrintInfo(List L, char **C)
 
 int NbElmt(List L)
 { /* Mengirimkan banyaknya elemen list, mengirimkan Nol jika kosong */
+
+	//Kamus Lokal
   address P;
+  
+  //Algoritma
   int NbEl=0;
   if(ListEmpty(L)){
  	return 0;
@@ -269,7 +276,11 @@ int NbElmt(List L)
 /******************************************************/
 void DelAll(List *L)
 { /* Delete semua elemen list, dan alamat elemen di-deAlloct */
+
+	//Kamus Lokal
    infoPenyakit X;
+   
+   //Algoritma
    while(!ListEmpty(*L)) {
 	  DelVFirst(&(*L),&X);
    } /* kosong */
@@ -281,10 +292,5 @@ void CopyList(List L1, List *L2)
   /*         tidak ada Alloct/deAlloct 		*/
    *L2=L1;	
 }
-
-List FCopyList(List L)
-{ /* Mengirimkan list yang merupakan salinan L  	*/
-}
-
 
 #endif

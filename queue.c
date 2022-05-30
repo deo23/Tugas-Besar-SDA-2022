@@ -1,26 +1,37 @@
 /*
-	Modified		:   Berliana Elfada
-                        Muhammad Deo Audha Rizki
-                        Suci Awalia Gardara
-	Date Modified 	: 16 Mei 2022
-	Version			: 1.0
+Program : queue.c
+Author : Berliana Elfada
+        Muhammad Deo Audha Rizki
+        Suci Awalia Gardara
+Deskripsi: Body file dari ADT Queue
+Tanggal : 16 Mei 2022
+
+Modified : Berliana Elfada
+        Muhammad Deo Audha Rizki
+        Suci Awalia Gardara
+Date Modified 	: 30 Mei 2022
+Version			: 2.0
 */
 #include <stdio.h>
 #include "queue.h"
 #include "time.h"
-#include <string.h>
 
-time latestSelesai;
+
+time latestSelesai; //Variabel Global untuk menampung waktu selesai terakhir
+
 /***** Manajemen memori *****/
+addrNQ Alokasi(infotype X){
 /* Mengirimkan address hasil alokasi sebuah elemen dengan info X.
 * Jika alokasi berhasil, modul mengembalikan P; Info(P) = X,
 Next(P) = NULL.
 * P adalah pointer yang menunjuk ke node Queue sebagai hasil
 alokasi.
 * Jika alokasi gagal, modul mengembalikan NULL.
+Author: Berliana Elfada
 */
-addrNQ Alokasi(infotype X){
+	//Kamus Lokal
 	addrNQ P;
+	//Algoritma
     P = (addrNQ)malloc(sizeof(NodeQueue));
 
     if(P != NULL) { /* Berhasil  */
@@ -33,33 +44,36 @@ addrNQ Alokasi(infotype X){
 }
 
 
+void Dealokasi(addrNQ *P){
 /* Melakukan dealokasi elemen P (pointer menunjuk ke alamat node
 queue).
 * I.S.: P terdefinisi.
 * F.S.: P dikembalikan ke sistem.
+Author: Berliana Elfada
 */
-void Dealokasi(addrNQ *P){
 	(*P)->next = NULL;
     free(*P);
 }
 
 
 /***** Manajemen Queue *****/
+void CreateQueue(Queue *Q){
 /* Membuat sebuah Queue kosong dengan Front(Q) = Nil dan Rear (Q) =
 Nil
 I.S. Belum terbentuk Queue
 F.S. Sudah terbentuk Queue
+Author: Suci Awalia Gardara
 */
-void CreateQueue(Queue *Q){
 	(*Q).Front = Nil;
 }
 
+int IsQueueEmpty(Queue Q){
 /* Mengetahui apakah Queue kosong atau tidak.
 mengirimkan 1 jika Queue Kosong yaitu Front(Q) = Nil dan Rear
 (Q) = Nil
 Sebaliknya 0 (Queue tidak kosong)
+Author: Suci Awalia Gardara
 */
-int IsQueueEmpty(Queue Q){
 	if (Q.Front == Nil) {
 		return 1;
 	} else {
@@ -67,14 +81,17 @@ int IsQueueEmpty(Queue Q){
 	}
 }
 
-/* Memasukkan info baru ke dalam Queue dengan aturan FIFO */
+void enQueue(Queue *Q, infotype X){
+/* Memasukkan info baru ke dalam Queue dengan urutan berdasarkan prioritas */
 /* I.S. Q mungkin kosong atau Q mungkin berisi antrian */
 /* F.S. info baru (data) menjadi Rear yang baru dengan node Rear
-yang lama mengaitkan pointernya ke node yang baru */
-// Function to push according to priority
-void enQueue(Queue *Q, infotype X){
+yang lama mengaitkan pointernya ke node yang baru 
+Author: Muhammad Deo Audha Rizki
+*/
+	//Kamus Lokal
 	addrNQ P, temp;
 	
+	//Algoritma
 	P = Alokasi(X);
 	if(P != Nil){
 		if(IsQueueEmpty((*Q)) || Info(P).prioritas > Info(Front(*Q)).prioritas){
@@ -91,16 +108,21 @@ void enQueue(Queue *Q, infotype X){
 		}
 	}
 }
+
+
+void deQueue(Queue *Q){
 /* Proses: Mengambil info pada Front(Q) dan mengeluarkannya dari
 Queue dengan aturan FIFO dan memasukkan data yang terhapus ke dalam file*/
 /* I.S. Q mungkin kosong atau Q mungkin berisi antrian */
 /* F.S. info yang diambil = nilai elemen Front pd I.S. */
 /* Front(Q) menunjuk ke next antrian atau diset menjadi NIll, Q
-mungkin kosong */
-
-void deQueue(Queue *Q){
+mungkin kosong 
+Author: Muhammad Deo Audha Rizki
+*/
+	//Kamus Lokal
 	addrNQ P;
 	
+	//Algoritma
 	if(IsQueueEmpty(*Q)){
 		puts("============================================");
 		printf("Maaf Antrian Kosong.\n");
@@ -120,12 +142,15 @@ void deQueue(Queue *Q){
 	}
 }
 
+
+int NBElmt(Queue Q){
 /* Mengirimkan banyaknya elemen queue jika Q berisi atrian atau
 mengirimkan 0 jika Q kosong
+Author: Suci Awalia Gardara
 */
-int NBElmt(Queue Q){
+	//Kamus Lokal
 	addrNQ P;
-
+	//Algoritma
 	int count = 0;
 
 	P = Front(Q);
@@ -150,20 +175,25 @@ char *arrPenyakit[9] = {
 	"Terkena Virus"
 };
 /***** Algoritma Program *****/
-/* Menampilkan daftar penyakit yang diambil dari variabel global ArrDisease
-   dan mengelompokkannya ke dalam kategori
-*/
+
 void printPenyakit(){
+/* Menampilkan daftar penyakit yang diambil dari variabel global ArrDisease
+dan mengelompokkannya ke dalam kategori
+Author: Berliana Elfada
+*/
+	//Kamus Lokal
 	int i;
+	//Algoritma
 	for (i=0; i<9; i++){
 		printf("				  	%d. %s\n",i+1, arrPenyakit[i]);
 	}
 }
 
 
-/* Mengembalikan nilai string apakah Ringan, Sedang atau Berat berdasarkan penyakit yang diderita
-*/
 char *kategoriPenyakit(int penyakit){
+/* Mengembalikan nilai string apakah Ringan, Sedang atau Berat berdasarkan penyakit yang diderita
+Author: Suci Awalia Gardara
+*/
 	if (penyakit < 4){
 		return "Ringan";
 	}else if (penyakit < 7){
@@ -173,9 +203,11 @@ char *kategoriPenyakit(int penyakit){
 	}
 }
 
-/* Mengembalikan nilai integer berupa waktu pemeriksaan setiap penyakit berdasarkan kategori penyakit
-*/
+
 int cekWaktuPelayanan(int Penyakit){
+/* Mengembalikan nilai integer berupa waktu pemeriksaan setiap penyakit berdasarkan kategori penyakit
+Author: Berliana Elfada
+*/
 	if (Penyakit<4){
 		return 15; 
 	} else if (Penyakit<7){
@@ -185,12 +217,15 @@ int cekWaktuPelayanan(int Penyakit){
 	}
 }
 
+int hitungPrioritas(int Ringan, int Sedang, int Berat){
 /* Proses : Mengembalikan nilai integer berupa perhitungan nilai prioritas berdasarkan jumlah penyakit dan kategori penyakit
    I.S : variabel count bernilai 1
    F.S : Nilai variabel count tetap atau berubah
+   Author: Suci Awalia Gardara
 */
-int hitungPrioritas(int Ringan, int Sedang, int Berat){
+	//Kamus Lokal
 	int nilai = 1;
+	//Algoritma
 	if (Berat >= 1){
 		nilai += 4;
 	}
@@ -204,20 +239,26 @@ int hitungPrioritas(int Ringan, int Sedang, int Berat){
 	return nilai;
 }
 
-/* Mengembalikan nilai integer untuk waktu pemeriksaan berdasarkan jumlah setiap penyakit yang diderita
-*/
+
 int hitungWaktuPelayanan(int Ringan, int Sedang, int Berat){
+/* Mengembalikan nilai integer untuk waktu pemeriksaan berdasarkan jumlah setiap penyakit yang diderita
+Author: Berliana Elfada
+*/
 	return (Ringan*15) + (Sedang*30) + (Berat*45);
 }
 
+
+void setTime(Queue *Q){
 /* Proses : Menghitung dan mengubah waktu tunggu, waktu mulai, dan waktu selesai jika terjadi
              perubahan urutan antrian
    I.S : Semua waktu belum ada nilai atau tidak sesuai
    F.S : Nilai semua waktu berubah seiring adanya perubahan urutan queue
+   Author: Suci Awalia Gardara
+   Modified: Muhammad Deo Audha Rizki
 */
-void setTime(Queue *Q){
+	//Kamus Lokal
 	addrNQ P, prev;
-	
+	//Algoritma
 	P = Front(*Q);
 	if((latestSelesai.hour == 0 && latestSelesai.min == 0) || compareTime(latestSelesai, Info(P).waktuDatang)==0){
 		Info(P).waktuTunggu.hour = 0;
@@ -242,48 +283,19 @@ void setTime(Queue *Q){
 		P = Next(P);
 	}
 }
-//void setTime(Queue *Q){
-//	addrNQ travel, before;
-//
-//	travel=(*Q).Front;
-//
-//	if (Next(Front(*Q)) == Nil){
-//		Info(travel).waktuTunggu.hour = 0;
-//        Info(travel).waktuTunggu.min = 0;
-//		Info(travel).waktuMulai.hour = Info(travel).waktuDatang.hour;
-//        Info(travel).waktuMulai.min = Info(travel).waktuDatang.min;
-//		Info(travel).waktuSelesai = addTime(Info(travel).waktuMulai, Info(travel).waktuPelayanan) ;
-//	}
-//	else {
-//		while(travel!=NULL){
-//			if (travel==Front(*Q)){
-//				Info(travel).waktuTunggu.hour = 0;
-//                Info(travel).waktuTunggu.min = 0;
-//				Info(travel).waktuMulai.hour = Info(travel).waktuDatang.hour;
-//                Info(travel).waktuMulai.min = Info(travel).waktuDatang.min;
-//				Info(travel).waktuSelesai = addTime(Info(travel).waktuMulai, Info(travel).waktuPelayanan) ;
-//			}
-//			else{
-//				if(compareTime(Info(before).waktuSelesai, Info(travel).waktuDatang) == 1){
-//					Info(travel).waktuTunggu = substractTime(Info(before).waktuSelesai, Info(travel).waktuDatang) ;
-//				}
-//				else Info(travel).waktuTunggu.hour = 0;
-//        		Info(travel).waktuTunggu.min = 0;
-//				Info(travel).waktuMulai = addTime(Info(travel).waktuTunggu, Info(travel).waktuDatang) ;
-//				Info(travel).waktuSelesai = addTime(Info(travel).waktuMulai, Info(travel).waktuPelayanan) ;
-//			}
-//			before = travel;
-//			travel = travel->next;
-//		}
-//	}
-//}
 
 /* Proses : Menampilkan menu registrasi dan menerima masukan pengguna yang akan dimasukkan ke dalam Queue
    I.S : Data queue belum dimasukkan
    F.S : Data dari inputan pengguna dimasukkan ke dalam queue dan menampilkan isi daftar antrian
 */
 void Registrasi(Queue *Q){
+/* Proses : Menampilkan menu registrasi dan menerima masukan pengguna yang akan dimasukkan ke dalam Queue
+   I.S : Data queue belum dimasukkan
+   F.S : Data dari inputan pengguna dimasukkan ke dalam queue dan menampilkan isi daftar antrian
+   Author: Muhammad Deo Audha Rizki
+*/
 	system("cls");
+	//Kamus Lokal
 	infotype X;
 	CreateList(&X.listPenyakit);
 	infoPenyakit Y;
@@ -291,7 +303,7 @@ void Registrasi(Queue *Q){
 	int tempPenyakit[9];
 	int i, totalPenyakit;
 	
-	
+	//Algoritma
 	printf("					====================================\n");
 	printf("					              Registrasi\n");
 	printf("					====================================\n");
@@ -383,6 +395,22 @@ void PrintQueue(Queue Q){
 	}
 }
 
+void PrintNode(addrNQ P){
+	if(P != Nil){
+			printf("					Nama Hewan                  : %s\n", (P)->info.namaHewan);
+			printf("					Datang pada pukul           : %02d:%02d\n", (P)->info.waktuDatang.hour, (P)->info.waktuDatang.min);
+			puts("					Penyakit yang Diderita      :");
+			PrintInfo(P->info.listPenyakit, arrPenyakit);
+			printf("					Nilai Prioritas             : %d\n", (P)->info.prioritas);
+			printf("					Estimasi Waktu Pelayanan    : %02d:%02d\n", (P)->info.waktuPelayanan.hour, (P)->info.waktuPelayanan.min);
+			printf("					Waktu Tunggu Pelayanan      : %02d:%02d\n", (P)->info.waktuTunggu.hour, (P)->info.waktuTunggu.min);
+			printf("					Waktu Mulai Pelayanan       : %02d:%02d\n", (P)->info.waktuMulai.hour, (P)->info.waktuMulai.min);
+			printf("					Waktu Selesai Pelayanan     : %02d:%02d\n", (P)->info.waktuSelesai.hour, (P)->info.waktuSelesai.min);
+			
+			printf("					------------------------------------\n");	
+	}
+}
+
 void prosesAntrian(Queue *Q){
 	system ("cls");
 	addrNQ P;
@@ -434,14 +462,13 @@ void prosesAntrian(Queue *Q){
 addrNQ cariData (Queue Q){
 	
 	addrNQ P = Front(Q);
-	boolean ketemu;
 	char namaHewan[25];
 	
 	
 	printf("Nama Kucing : ");
 	scanf("%s", &namaHewan);
 	fflush(stdin);
-	while((P != NULL) && (!ketemu)){
+	while((P != NULL)){
 		if(strcmp(P->info.namaHewan, namaHewan) == 0){
 			return P;
 		}
@@ -450,19 +477,4 @@ addrNQ cariData (Queue Q){
 	return Nil;
 } 
 
-void PrintNode(addrNQ P){
-    if(P != Nil){
-            printf("\n                    Nama Hewan                  : %s\n", (P)->info.namaHewan);
-            printf("                    Datang pada pukul           : %02d:%02d\n", (P)->info.waktuDatang.hour, (P)->info.waktuDatang.min);
-            puts("                    Penyakit yang Diderita      :");
-            PrintInfo(P->info.listPenyakit, arrPenyakit);
-            printf("                    Nilai Prioritas             : %d\n", (P)->info.prioritas);
-            printf("                    Estimasi Waktu Pelayanan    : %02d:%02d\n", (P)->info.waktuPelayanan.hour, (P)->info.waktuPelayanan.min);
-            printf("                    Waktu Tunggu Pelayanan      : %02d:%02d\n", (P)->info.waktuTunggu.hour, (P)->info.waktuTunggu.min);
-            printf("                    Waktu Mulai Pelayanan       : %02d:%02d\n", (P)->info.waktuMulai.hour, (P)->info.waktuMulai.min);
-            printf("                    Waktu Selesai Pelayanan     : %02d:%02d\n", (P)->info.waktuSelesai.hour, (P)->info.waktuSelesai.min);
-
-            printf("                    ------------------------------------\n");
-    }
-}
 

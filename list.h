@@ -1,10 +1,13 @@
-/* File :  LIST1.h 
+/* File :  list.h
  * Desk :  Deklarasi list berkait dgn representasi fisik pointer. Representasi address dgn pointer
  * Oleh :  ANI RAHMANI / 23501007 
  * Tgl  :  25/10/01	
- * Modifikasi : Hilma Sri Rahayu
- * Tanggal : 21/07/21
- */	 
+ * Modifikasi : Berliana Elfada
+ 				Muhammad Deo Audha Rizki
+ 				Suci Awalia Gardara
+ * Tanggal : 30/05/22
+ */	  
+
 
 /* List :  */
 
@@ -39,17 +42,17 @@ typedef struct {
 	address First;
 }List;
 
-/* ** Prototype   **  */
-/* ** Test List Kosong **  */
+/*********** PROTOTYPE ****************/
+/**** Predikat untuk test keadaan LIST  ****/
 boolean ListEmpty(List  L);                        
 /*  Mengirim true jika List kosong  */
 
-/* Pembuatan  List Kosong  */
+/**** Konstruktor/Kreator List Kosong ****/
 void CreateList(List *L);
 /* I.S  :  Sembarang    		*/
 /* F.S  :  Terbentuk  List kosong  	*/
 
-/* Manajeman  memory  			*/
+/**** Manajemen Memory ****/
 address Alloct(infoPenyakit  X);
  /* Mengirimkan  address  hasil alokasi    sebuah elemen */
  /* Jika alokasi  berhasil, maka  address tidak nil, dan misalnya  */
@@ -62,16 +65,15 @@ void DeAlloct(address *P);
 /*   	    Melakukan  dealokasi, pengembalian address  P */
 
 
-/*   ** PENCARIAN SEBUAH ELEMEN LIST **   */
+/**** Pencarian sebuah elemen List ****/
 
 boolean FSearch(List L, address P);
 /* Mencari apakah  ada elemen List yang  beralamat   P   */
 /* Mengirimkan true jika ada, false jika tidak ada  	 */
 
 
-/* ** PRIMITIF BERDASARKAN NILAI ** */
-
-/* ** Penambahan Elemen ** */
+/**** PRIMITIF BERDASARKAN NILAI ****/
+/**** Penambahan Elemen ****/
 void InsVFirst(List *L, infoPenyakit X);
 /* I.S  : L mungkin kosong          */
 /* F.S  : Melakukan alokasi sebuah elemen dan                */
@@ -85,7 +87,7 @@ void InsVLast(List *L, infoPenyakit X);
 /*        yang baru bernilai X jika alokasi berhasil, 	     */	
 /*	  Jika alokasi gagal: I.S = F.S			     */
 
-/* *** Penghapusan Elemen  ***  */
+/**** Penghapusan Elemen ****/
 	  
 void DelVFirst(List *L, infoPenyakit *X);
   /* I.S    : List tidak kosong  		                 */
@@ -98,7 +100,7 @@ void DelVLast(List *L, infoPenyakit *X);
   /* F.S    : Elemen terakhir list dihapus, nilai info disimpan  */
   /*	      pada X dan alamat elemen terakhir di-dealokasi 	 */
 
-/* *******  PRIMITIF BERDASARKAN ALAMAT ********	*/
+/**** PRIMITIF BERDASARKAN ALAMAT ****/
 /* Penambahan Elemen Berdasarkan Alamat 		*/
 
 void InsertFirst(List *L, address P);
@@ -161,9 +163,6 @@ void CopyList(List L1, List *L2);
 /* I.S   : L1 sembarang 				*/
 /* F.S   : L1 dan L2 menunjuk ke list yang sama 	*/
 /*         tidak ada alokasi/dealokasi yang elemen	*/
-
-List FCopyList(List L);
-/* Mengirimkan list yang merupakan salinan L  		*/
 
 
 #endif

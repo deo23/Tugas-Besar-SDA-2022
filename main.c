@@ -1,9 +1,11 @@
 /* Program : main.c
  * Deskripsi : main driver Aplikasi Layanan Dokter Hewan
+ * Date: 27 Mei 2022
  * Modified	:   Berliana Elfada
                 Muhammad Deo Audha Rizki
                 Suci Awalia Gardara
- *Date Modified : 39 Mei 2022
+ *Date Modified : 30 Mei 2022
+ version : 2.0
  */
 
 #include <stdio.h>
@@ -15,13 +17,12 @@ int main (){
 	system("cls");
 	Queue Q;
 	CreateQueue(&Q);
+	addrNQ P;
 	
 	char menuPilihan;
 	
 	char empty;
- 	int panjang;
- 	addrNQ P;
-
+ int panjang;
  
  
 	do{
@@ -72,38 +73,41 @@ int main (){
 			system("cls");
 
 		}
-		else if(menuPilihan == '3'){	
-			
+		else if(menuPilihan == '3'){
 			P = cariData(Q);
 			if(P != Nil){
 				PrintNode(P);
 			}else{
-				printf(" Data tidak ada !");
+			printf("%67.c===========================================\n",empty);
+			printf("%67.c||       Tidak ada dalam antrian!        ||\n",empty);
+			printf("%67.c===========================================\n",empty);
 			}
 			system("pause");
-			system("cls");
+			system("cls");		
+
 		}
 		else if(menuPilihan == '4'){
 			
+		
 			prosesAntrian(&Q);
 			system("pause");
 			system("cls");
 
 		}else if(menuPilihan == '5'){
 			
-			printf("					====================================\n");
-			printf("					||       Sampai Jumpa Lagi !      ||\n");
-			printf("					====================================\n");
-			system("pause");
+			printf("%67.c====================================\n",empty);
+			printf("%67.c||       Sampai Jumpa Lagi !      ||\n",empty);
+			printf("%67.c====================================\n",empty);
+			exit(0);
 		}
 		else{
 		
 			printf("\n");
-			printf("					====================================\n");
-			printf("					||       Masukan Anda Salah       ||\n");
-			printf("					||       Masukan Angka 1-5!       ||\n");
-			printf("					||       Silakan Coba Lagi        ||\n");
-			printf("					====================================\n");
+			printf("%67.c====================================\n",empty);
+			printf("%67.c||       Masukan Anda Salah       ||\n",empty);
+			printf("%67.c||       Masukan Angka 1-5!       ||\n",empty);
+			printf("%67.c||       Silakan Coba Lagi        ||\n",empty);
+			printf("%67.c====================================\n",empty);
 			system("pause");
 	
 		}
