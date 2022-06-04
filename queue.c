@@ -83,7 +83,7 @@ Author: Suci Awalia Gardara
 
 void enQueue(Queue *Q, infotype X){
 /* Memasukkan info baru ke dalam Queue dengan urutan berdasarkan prioritas */
-/* I.S. Q mungkin kosong atau Q mungkin berisi antrian */
+/* I.S. Q mungkin kosong atau Q mungkin berisi antrean */
 /* F.S. info baru (data) menjadi Rear yang baru dengan node Rear
 yang lama mengaitkan pointernya ke node yang baru 
 Author: Muhammad Deo Audha Rizki
@@ -113,19 +113,18 @@ Author: Muhammad Deo Audha Rizki
 void deQueue(Queue *Q){
 /* Proses: Mengambil info pada Front(Q) dan mengeluarkannya dari
 Queue dengan aturan FIFO dan memasukkan data yang terhapus ke dalam file*/
-/* I.S. Q mungkin kosong atau Q mungkin berisi antrian */
+/* I.S. Q mungkin kosong atau Q mungkin berisi antrean */
 /* F.S. info yang diambil = nilai elemen Front pd I.S. */
-/* Front(Q) menunjuk ke next antrian atau diset menjadi NIll, Q
+/* Front(Q) menunjuk ke next antrean atau diset menjadi NIll, Q
 mungkin kosong 
 Author: Muhammad Deo Audha Rizki
 */
 	//Kamus Lokal
 	addrNQ P;
-	
+	char empty;
 	//Algoritma
 	if(IsQueueEmpty(*Q)){
-		puts("============================================");
-		printf("Maaf Antrian Kosong.\n");
+		printf("%67.c **********Maaf Antrean Kosong.**********\n", empty);
 	}
 	else{
 		P = Front(*Q);
@@ -183,9 +182,10 @@ Author: Berliana Elfada
 */
 	//Kamus Lokal
 	int i;
+	char empty;
 	//Algoritma
 	for (i=0; i<9; i++){
-		printf("				  	%d. %s\n",i+1, arrPenyakit[i]);
+		printf("%63.c  	%d. %s\n",empty,i+1, arrPenyakit[i]);
 	}
 }
 
@@ -250,7 +250,7 @@ Author: Berliana Elfada
 
 void setTime(Queue *Q){
 /* Proses : Menghitung dan mengubah waktu tunggu, waktu mulai, dan waktu selesai jika terjadi
-             perubahan urutan antrian
+             perubahan urutan antrean
    I.S : Semua waktu belum ada nilai atau tidak sesuai
    F.S : Nilai semua waktu berubah seiring adanya perubahan urutan queue
    Author: Suci Awalia Gardara
@@ -286,12 +286,12 @@ void setTime(Queue *Q){
 
 /* Proses : Menampilkan menu registrasi dan menerima masukan pengguna yang akan dimasukkan ke dalam Queue
    I.S : Data queue belum dimasukkan
-   F.S : Data dari inputan pengguna dimasukkan ke dalam queue dan menampilkan isi daftar antrian
+   F.S : Data dari inputan pengguna dimasukkan ke dalam queue dan menampilkan isi daftar antrean
 */
 void Registrasi(Queue *Q){
 /* Proses : Menampilkan menu registrasi dan menerima masukan pengguna yang akan dimasukkan ke dalam Queue
    I.S : Data queue belum dimasukkan
-   F.S : Data dari inputan pengguna dimasukkan ke dalam queue dan menampilkan isi daftar antrian
+   F.S : Data dari inputan pengguna dimasukkan ke dalam queue dan menampilkan isi daftar antrean
    Author: Muhammad Deo Audha Rizki
 */
 	system("cls");
@@ -305,15 +305,15 @@ void Registrasi(Queue *Q){
 	int i, totalPenyakit;
 	
 	//Algoritma
-	printf("%35.c%c",empty,254);
+ printf("%35.c%c",empty,254);
  printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"); printf("%c", 254);
- printf("\n%35.c%c%18.c  ___   ______       _______     __         _____      _____",empty,254,empty);printf("%3.c",empty);printf("%19.c%c\n",empty,254);
- printf("%35.c%c%18.c //       ||     ||    ||       //%c%c       //         //   %c%c",empty,254,empty,92,92,92,92,92,92,92,92,92,92);printf("%3.c",empty);printf("%18.c%c\n",empty,254);
- printf("%35.c%c%18.c %c%c__     ||     ||    ||      //__%c%c     //         //     %c%c",empty,254,empty,92,92,92,92,92,92,92,92,92,92,92);printf("%3.c",empty);printf("%17.c%c\n",empty,254);
- printf("%35.c%c%18.c    %c%c    ||     ||    ||     //    %c%c    %c%c         %c%c     //",empty,254,empty,92,92,92);printf("%3.c",empty);printf("%17.c%c\n",empty,254);
- printf("%35.c%c%18.c  __//    ||     ||    ||    //      %c%c    %c%c____     %c%c___//",empty,254,empty,92,92,92);printf("%3.c",empty);printf("%18.c%c\n",empty,254);
+ printf("\n%35.c%c%18.c  ___   ______       _______     __         _____      _____",empty,254,empty);printf("%3.c",empty);printf("%22.c%c\n",empty,254);
+ printf("%35.c%c%18.c //       ||     ||    ||       //%c%c       //         //   %c%c",empty,254,empty,92,92,92,92,92,92,92,92,92,92);printf("%3.c",empty);printf("%21.c%c\n",empty,254);
+ printf("%35.c%c%18.c %c%c__     ||     ||    ||      //__%c%c     //         //     %c%c",empty,254,empty,92,92,92,92,92,92,92,92,92,92,92);printf("%3.c",empty);printf("%20.c%c\n",empty,254);
+ printf("%35.c%c%18.c    %c%c    ||     ||    ||     //    %c%c    %c%c         %c%c     //",empty,254,empty,92,92,92);printf("%3.c",empty);printf("%20.c%c\n",empty,254);
+ printf("%35.c%c%18.c  __//    ||     ||    ||    //      %c%c    %c%c____     %c%c___//",empty,254,empty,92,92,92);printf("%3.c",empty);printf("%21.c%c\n",empty,254);
  
-    printf("%35.c%c",empty,254);for(panjang=0; panjang<100; panjang++){printf("%c",empty);}printf("%c\n",254);
+    printf("%35.c%c",empty,254);for(panjang=0; panjang<100; panjang++){printf("%c",empty);}printf("%101.c%c\n",empty,254);
     printf("%35.c%c",empty,177);for(panjang=0; panjang<100; panjang++){printf("%c",177);}printf("%c",177);
  printf("\n%35.c",empty);for(panjang=0; panjang<100; panjang++){printf("%c",empty);}  
  printf("\n%19.c   &&              &&/    &&&&&&&&&   &&&&&&&&   //&&&&&&&&  //&&&&&&&&   //&&&&&&    &&              &&/   &&   &&&&&&&&&   &&&&&&&",empty,empty);printf("%20.c\n",empty);
@@ -323,23 +323,23 @@ void Registrasi(Queue *Q){
  printf("%19.c       &&      &&/        &&             &&            /&&   &&          /&& &&           &&      &&/       &&   &&          &&   ",empty,empty);printf("%20.c\n",empty);
  printf("%19.c        &&    &&/         &&             &&            /&&   &&          /&&  &&           &&    &&/        &&   &&          &&   ",empty,empty);printf("%20.c\n",empty);
  printf("%19.c         &&&&&&/          &&&&&&&&&&     &&      &&&&&&&//   &&&&&&&&&   /&&    &&          &&&&&&/         &&   &&&&&&&&&   &&&&&&&",empty,empty);printf("%20.c\n",empty); 
-printf("\n\n\n\n");
-	printf("					====================================\n");
-	printf("					              Registrasi\n");
-	printf("					====================================\n");
-	printf("					Nama Hewan                  : "); scanf("%s", &X.namaHewan);
+printf("\n\n");
+	printf("%19.c =========================================================================================================================================\n", empty);
+	printf("%67.c		REGISTRASI\n" , empty);
+	printf("%19.c =========================================================================================================================================\n", empty);
+	printf("%67.c 	    Nama Kucing  : ", empty); scanf("%s", &X.namaHewan);
 	fflush(stdin);
-	printf("					Datang pada pukul (JJ:MM)   : "); scanf("%02d:%02d", &X.waktuDatang.hour, &X.waktuDatang.min);
+	printf("%67.c	Datang pukul (JJ:MM)   : ", empty); scanf("%02d:%02d", &X.waktuDatang.hour, &X.waktuDatang.min);
 	fflush(stdin);
 	
 	printf("\n");
-	printf("					       *** List Penyakit ***\n");
+	printf("%67.c 	*** List Penyakit ***\n", empty);
 	printPenyakit();
 	printf("\n");
-	printf("					Jumlah Penyakit             : "); scanf("%d", &totalPenyakit);
-	puts("					No. Penyakit yang Diderita  : ");
+	printf("%67.c  	Jumlah Penyakit  : ", empty); scanf("%d", &totalPenyakit);
+	printf("%67.c   No. Penyakit yang Diderita : ", empty);
 	for (i=0; i<totalPenyakit; i++){
-	    printf("					");
+	    printf(" ");
 		scanf("	%d", &tempPenyakit[i]);
 	}
 	
@@ -371,10 +371,10 @@ printf("\n\n\n\n");
 	
 
 	printf("\n");
-	printf("					 *** Anda Sudah Terdaftar! *** \n\n");
+	printf("%67.c 	*** Anda Sudah Terdaftar! *** \n\n", empty);
 }
 
-/* Proses : Memasukkan data-data queue yang terinput ke dalam file daftar-antrian.txt
+/* Proses : Memasukkan data-data queue yang terinput ke dalam file daftar-antrean.txt
            dan mengubah seluruh isi file seiring terjadinya perubahan urutan
    I.S : File mungkin kosong atau tidak ada
    F.S : Jika file tersebut tidak ada, program mengirimkan pesan eror
@@ -389,15 +389,15 @@ void PrintQueue(Queue Q){
 	int i=1, j;
 	
 	P = Q.Front;
-	printf("%35.c%c",empty,254);
+ printf("%35.c%c",empty,254);
  printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"); printf("%c", 254);
- printf("\n%35.c%c%18.c  ___   ______       _______     __         _____      _____",empty,254,empty);printf("%3.c",empty);printf("%19.c%c\n",empty,254);
- printf("%35.c%c%18.c //       ||     ||    ||       //%c%c       //         //   %c%c",empty,254,empty,92,92,92,92,92,92,92,92,92,92);printf("%3.c",empty);printf("%18.c%c\n",empty,254);
- printf("%35.c%c%18.c %c%c__     ||     ||    ||      //__%c%c     //         //     %c%c",empty,254,empty,92,92,92,92,92,92,92,92,92,92,92);printf("%3.c",empty);printf("%17.c%c\n",empty,254);
- printf("%35.c%c%18.c    %c%c    ||     ||    ||     //    %c%c    %c%c         %c%c     //",empty,254,empty,92,92,92);printf("%3.c",empty);printf("%17.c%c\n",empty,254);
- printf("%35.c%c%18.c  __//    ||     ||    ||    //      %c%c    %c%c____     %c%c___//",empty,254,empty,92,92,92);printf("%3.c",empty);printf("%18.c%c\n",empty,254);
+ printf("\n%35.c%c%18.c  ___   ______       _______     __         _____      _____",empty,254,empty);printf("%3.c",empty);printf("%22.c%c\n",empty,254);
+ printf("%35.c%c%18.c //       ||     ||    ||       //%c%c       //         //   %c%c",empty,254,empty,92,92,92,92,92,92,92,92,92,92);printf("%3.c",empty);printf("%21.c%c\n",empty,254);
+ printf("%35.c%c%18.c %c%c__     ||     ||    ||      //__%c%c     //         //     %c%c",empty,254,empty,92,92,92,92,92,92,92,92,92,92,92);printf("%3.c",empty);printf("%20.c%c\n",empty,254);
+ printf("%35.c%c%18.c    %c%c    ||     ||    ||     //    %c%c    %c%c         %c%c     //",empty,254,empty,92,92,92);printf("%3.c",empty);printf("%20.c%c\n",empty,254);
+ printf("%35.c%c%18.c  __//    ||     ||    ||    //      %c%c    %c%c____     %c%c___//",empty,254,empty,92,92,92);printf("%3.c",empty);printf("%21.c%c\n",empty,254);
  
-    printf("%35.c%c",empty,254);for(panjang=0; panjang<100; panjang++){printf("%c",empty);}printf("%c\n",254);
+    printf("%35.c%c",empty,254);for(panjang=0; panjang<100; panjang++){printf("%c",empty);}printf("%101.c%c\n",empty,254);
     printf("%35.c%c",empty,177);for(panjang=0; panjang<100; panjang++){printf("%c",177);}printf("%c",177);
  printf("\n%35.c",empty);for(panjang=0; panjang<100; panjang++){printf("%c",empty);}  
  printf("\n%19.c   &&              &&/    &&&&&&&&&   &&&&&&&&   //&&&&&&&&  //&&&&&&&&   //&&&&&&    &&              &&/   &&   &&&&&&&&&   &&&&&&&",empty,empty);printf("%20.c\n",empty);
@@ -407,27 +407,27 @@ void PrintQueue(Queue Q){
  printf("%19.c       &&      &&/        &&             &&            /&&   &&          /&& &&           &&      &&/       &&   &&          &&   ",empty,empty);printf("%20.c\n",empty);
  printf("%19.c        &&    &&/         &&             &&            /&&   &&          /&&  &&           &&    &&/        &&   &&          &&   ",empty,empty);printf("%20.c\n",empty);
  printf("%19.c         &&&&&&/          &&&&&&&&&&     &&      &&&&&&&//   &&&&&&&&&   /&&    &&          &&&&&&/         &&   &&&&&&&&&   &&&&&&&",empty,empty);printf("%20.c\n",empty); 
-printf("\n\n\n\n");
-	printf("					====================================\n");
-	printf("						      Daftar Antrian\n");
-	printf("					====================================\n");
+printf("\n\n");
+	printf("%19.c =========================================================================================================================================\n", empty);
+	printf("%67.c        	  DAFTAR ANTREAN\n", empty);
+	printf("%19.c =========================================================================================================================================\n", empty);
 		
 	if(IsQueueEmpty(Q)){
-		printf("\n					* Tidak Ada Antrian yang Terdaftar *\n\n");
+		printf("\n%67.c    *** Tidak Ada Antrean yang Terdaftar ***\n\n", empty);
 	} else {
 		while(P != Nil){
-			printf("					No. Antrian                 : %d\n", i++);
-			printf("					Nama Hewan                  : %s\n", (P)->info.namaHewan);
-			printf("					Datang pada pukul           : %02d:%02d\n", (P)->info.waktuDatang.hour, (P)->info.waktuDatang.min);
-			puts("					Penyakit yang Diderita      :");
-			PrintInfo(P->info.listPenyakit, arrPenyakit);
-			printf("					Nilai Prioritas             : %d\n", (P)->info.prioritas);
-			printf("					Estimasi Waktu Pelayanan    : %02d:%02d\n", (P)->info.waktuPelayanan.hour, (P)->info.waktuPelayanan.min);
-			printf("					Waktu Tunggu Pelayanan      : %02d:%02d\n", (P)->info.waktuTunggu.hour, (P)->info.waktuTunggu.min);
-			printf("					Waktu Mulai Pelayanan       : %02d:%02d\n", (P)->info.waktuMulai.hour, (P)->info.waktuMulai.min);
-			printf("					Waktu Selesai Pelayanan     : %02d:%02d\n", (P)->info.waktuSelesai.hour, (P)->info.waktuSelesai.min);
+			printf("%67.c       	No. Antrean    : %d\n",empty, i++);
+			printf("%67.c		Nama Kucing    : %s\n",empty, (P)->info.namaHewan);
+			printf("%67.c		Datang pukul   : %02d:%02d\n",empty, (P)->info.waktuDatang.hour, (P)->info.waktuDatang.min);
+			printf("%67.c 	Penyakit yang Diderita : \n", empty);
+			PrintInfo( P->info.listPenyakit, arrPenyakit);
+			printf("\n%67.c 		Nilai Prioritas : %d\n",empty, (P)->info.prioritas);
+			printf("%67.c	Estimasi Waktu Pelayanan    : %02d:%02d\n",empty, (P)->info.waktuPelayanan.hour, (P)->info.waktuPelayanan.min);
+			printf("%67.c	Waktu Tunggu Pelayanan      : %02d:%02d\n",empty, (P)->info.waktuTunggu.hour, (P)->info.waktuTunggu.min);
+			printf("%67.c	Waktu Mulai Pelayanan       : %02d:%02d\n",empty, (P)->info.waktuMulai.hour, (P)->info.waktuMulai.min);
+			printf("%67.c	Waktu Selesai Pelayanan     : %02d:%02d\n",empty, (P)->info.waktuSelesai.hour, (P)->info.waktuSelesai.min);
 			
-			printf("					------------------------------------\n");
+			printf("%67.c  --------------------------------------------------\n", empty);
 			
 			P = Next(P);
 		}		
@@ -435,18 +435,23 @@ printf("\n\n\n\n");
 }
 
 void PrintNode(addrNQ P){
+	char empty;
+	int i=1;
 	if(P != Nil){
-			printf("					Nama Hewan                  : %s\n", (P)->info.namaHewan);
-			printf("					Datang pada pukul           : %02d:%02d\n", (P)->info.waktuDatang.hour, (P)->info.waktuDatang.min);
-			puts("					Penyakit yang Diderita      :");
-			PrintInfo(P->info.listPenyakit, arrPenyakit);
-			printf("					Nilai Prioritas             : %d\n", (P)->info.prioritas);
-			printf("					Estimasi Waktu Pelayanan    : %02d:%02d\n", (P)->info.waktuPelayanan.hour, (P)->info.waktuPelayanan.min);
-			printf("					Waktu Tunggu Pelayanan      : %02d:%02d\n", (P)->info.waktuTunggu.hour, (P)->info.waktuTunggu.min);
-			printf("					Waktu Mulai Pelayanan       : %02d:%02d\n", (P)->info.waktuMulai.hour, (P)->info.waktuMulai.min);
-			printf("					Waktu Selesai Pelayanan     : %02d:%02d\n", (P)->info.waktuSelesai.hour, (P)->info.waktuSelesai.min);
+			printf("%67.c       	No. Antrean    : %d\n",empty, i++);
+			printf("%67.c		Nama Kucing    : %s\n",empty, (P)->info.namaHewan);
+			printf("%67.c		Datang pukul   : %02d:%02d\n",empty, (P)->info.waktuDatang.hour, (P)->info.waktuDatang.min);
+			printf("%67.c 	Penyakit yang Diderita : \n", empty);
+			PrintInfo( P->info.listPenyakit, arrPenyakit);
+			printf("\n%67.c 		Nilai Prioritas : %d\n",empty, (P)->info.prioritas);
+			printf("%67.c	Estimasi Waktu Pelayanan    : %02d:%02d\n",empty, (P)->info.waktuPelayanan.hour, (P)->info.waktuPelayanan.min);
+			printf("%67.c	Waktu Tunggu Pelayanan      : %02d:%02d\n",empty, (P)->info.waktuTunggu.hour, (P)->info.waktuTunggu.min);
+			printf("%67.c	Waktu Mulai Pelayanan       : %02d:%02d\n",empty, (P)->info.waktuMulai.hour, (P)->info.waktuMulai.min);
+			printf("%67.c	Waktu Selesai Pelayanan     : %02d:%02d\n",empty, (P)->info.waktuSelesai.hour, (P)->info.waktuSelesai.min);
 			
-			printf("					------------------------------------\n");	
+			printf("%67.c  --------------------------------------------------\n", empty);
+			
+			P = Next(P);	
 	}
 }
 
@@ -459,15 +464,15 @@ void prosesAntrian(Queue *Q){
 	char empty;
 	int panjang;
 	P = (*Q).Front;
-	printf("%35.c%c",empty,254);
+ printf("%35.c%c",empty,254);
  printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"); printf("%c", 254);
- printf("\n%35.c%c%18.c  ___   ______       _______     __         _____      _____",empty,254,empty);printf("%3.c",empty);printf("%19.c%c\n",empty,254);
- printf("%35.c%c%18.c //       ||     ||    ||       //%c%c       //         //   %c%c",empty,254,empty,92,92,92,92,92,92,92,92,92,92);printf("%3.c",empty);printf("%18.c%c\n",empty,254);
- printf("%35.c%c%18.c %c%c__     ||     ||    ||      //__%c%c     //         //     %c%c",empty,254,empty,92,92,92,92,92,92,92,92,92,92,92);printf("%3.c",empty);printf("%17.c%c\n",empty,254);
- printf("%35.c%c%18.c    %c%c    ||     ||    ||     //    %c%c    %c%c         %c%c     //",empty,254,empty,92,92,92);printf("%3.c",empty);printf("%17.c%c\n",empty,254);
- printf("%35.c%c%18.c  __//    ||     ||    ||    //      %c%c    %c%c____     %c%c___//",empty,254,empty,92,92,92);printf("%3.c",empty);printf("%18.c%c\n",empty,254);
+ printf("\n%35.c%c%18.c  ___   ______       _______     __         _____      _____",empty,254,empty);printf("%3.c",empty);printf("%22.c%c\n",empty,254);
+ printf("%35.c%c%18.c //       ||     ||    ||       //%c%c       //         //   %c%c",empty,254,empty,92,92,92,92,92,92,92,92,92,92);printf("%3.c",empty);printf("%21.c%c\n",empty,254);
+ printf("%35.c%c%18.c %c%c__     ||     ||    ||      //__%c%c     //         //     %c%c",empty,254,empty,92,92,92,92,92,92,92,92,92,92,92);printf("%3.c",empty);printf("%20.c%c\n",empty,254);
+ printf("%35.c%c%18.c    %c%c    ||     ||    ||     //    %c%c    %c%c         %c%c     //",empty,254,empty,92,92,92);printf("%3.c",empty);printf("%20.c%c\n",empty,254);
+ printf("%35.c%c%18.c  __//    ||     ||    ||    //      %c%c    %c%c____     %c%c___//",empty,254,empty,92,92,92);printf("%3.c",empty);printf("%21.c%c\n",empty,254);
  
-    printf("%35.c%c",empty,254);for(panjang=0; panjang<100; panjang++){printf("%c",empty);}printf("%c\n",254);
+    printf("%35.c%c",empty,254);for(panjang=0; panjang<100; panjang++){printf("%c",empty);}printf("%101.c%c\n",empty,254);
     printf("%35.c%c",empty,177);for(panjang=0; panjang<100; panjang++){printf("%c",177);}printf("%c",177);
  printf("\n%35.c",empty);for(panjang=0; panjang<100; panjang++){printf("%c",empty);}  
  printf("\n%19.c   &&              &&/    &&&&&&&&&   &&&&&&&&   //&&&&&&&&  //&&&&&&&&   //&&&&&&    &&              &&/   &&   &&&&&&&&&   &&&&&&&",empty,empty);printf("%20.c\n",empty);
@@ -477,41 +482,43 @@ void prosesAntrian(Queue *Q){
  printf("%19.c       &&      &&/        &&             &&            /&&   &&          /&& &&           &&      &&/       &&   &&          &&   ",empty,empty);printf("%20.c\n",empty);
  printf("%19.c        &&    &&/         &&             &&            /&&   &&          /&&  &&           &&    &&/        &&   &&          &&   ",empty,empty);printf("%20.c\n",empty);
  printf("%19.c         &&&&&&/          &&&&&&&&&&     &&      &&&&&&&//   &&&&&&&&&   /&&    &&          &&&&&&/         &&   &&&&&&&&&   &&&&&&&",empty,empty);printf("%20.c\n",empty); 
-printf("\n\n\n\n");
-	printf("					====================================\n");
-	printf("						   Proses Antrian\n");
-	printf("					====================================\n");
+printf("\n\n");
+	printf("%19.c =========================================================================================================================================\n", empty);
+	printf("%67.c	    Proses Antrean\n", empty);
+	printf("%19.c =========================================================================================================================================\n", empty);
 	
 	if (P == Nil) { // Jika Queue Kosong
-		printf("\n					* Tidak Ada Antrian yang Terdaftar *\n\n");
+		printf("\n\n\n%67.c***TIDAK ADA ANTREAN YANG TERDAFTAR *** \n\n", empty);
     } else {
 		while(P != Nil){
-			printf("					No. Antrian                 : %d\n", i++);
-			printf("					Nama Hewan                  : %s\n", (P)->info.namaHewan);
-			printf("					Datang pada pukul           : %02d:%02d\n", (P)->info.waktuDatang.hour, (P)->info.waktuDatang.min);
-			puts("					Penyakit yang Diderita      :");
-			PrintInfo(P->info.listPenyakit, arrPenyakit);
-			printf("					Nilai Prioritas             : %d\n", (P)->info.prioritas);
-			printf("					Estimasi Waktu Pelayanan    : %02d:%02d\n", (P)->info.waktuPelayanan.hour, (P)->info.waktuPelayanan.min);
-			printf("					Waktu Tunggu Pelayanan      : %02d:%02d\n", (P)->info.waktuTunggu.hour, (P)->info.waktuTunggu.min);
-			printf("					Waktu Mulai Pelayanan       : %02d:%02d\n", (P)->info.waktuMulai.hour, (P)->info.waktuMulai.min);
-			printf("					Waktu Selesai Pelayanan     : %02d:%02d\n", (P)->info.waktuSelesai.hour, (P)->info.waktuSelesai.min);
+			printf("%67.c       	No. Antrean    : %d\n",empty, i++);
+			printf("%67.c		Nama Kucing    : %s\n",empty, (P)->info.namaHewan);
+			printf("%67.c		Datang pukul   : %02d:%02d\n",empty, (P)->info.waktuDatang.hour, (P)->info.waktuDatang.min);
+			printf("%67.c 	Penyakit yang Diderita : \n", empty);
+			PrintInfo( P->info.listPenyakit, arrPenyakit);
+			printf("\n%67.c 		Nilai Prioritas : %d\n",empty, (P)->info.prioritas);
+			printf("%67.c	Estimasi Waktu Pelayanan    : %02d:%02d\n",empty, (P)->info.waktuPelayanan.hour, (P)->info.waktuPelayanan.min);
+			printf("%67.c	Waktu Tunggu Pelayanan      : %02d:%02d\n",empty, (P)->info.waktuTunggu.hour, (P)->info.waktuTunggu.min);
+			printf("%67.c	Waktu Mulai Pelayanan       : %02d:%02d\n",empty, (P)->info.waktuMulai.hour, (P)->info.waktuMulai.min);
+			printf("%67.c	Waktu Selesai Pelayanan     : %02d:%02d\n",empty, (P)->info.waktuSelesai.hour, (P)->info.waktuSelesai.min);
 			
-			printf("					------------------------------------\n");
+			printf("%67.c  --------------------------------------------------\n", empty);
+			
+			P = Next(P);
 			P = Next(P);
 			R = InfoFront(*Q);
-			printf("					Memulai Proses Pelayanan Untuk %s? [Y/N] ", R.namaHewan);
+			printf("\n\n%67.c Memulai Proses Pelayanan Untuk %s? [Y/N] ",empty, R.namaHewan);
 			fflush(stdin);
 			scanf("%c", &pilih);
 			
 			if(pilih == 'Y' || pilih == 'y'){
 				deQueue(Q);
 				printf("\n");
-				printf("					       *** Harap bersabar ***\n");
-				printf("					  *** Hewan Anda Sedang Diobati ***\n\n");
+				printf("\n%67.c 		*** Harap bersabar ***\n", empty);
+				printf("%67.c   *** Hewan Anda Sedang Diobati ***\n\n", empty);
 			} 
 			else if(pilih == 'N' || pilih == 'n'){
-				printf("					***  Silahkan Kembali Ke Antrian ***\n");
+				printf("\n%67.c		***  Silahkan Kembali Ke Antrean ***\n", empty);
 			}
 		}
 	}
@@ -521,9 +528,9 @@ addrNQ cariData (Queue Q){
 	
 	addrNQ P = Front(Q);
 	char namaHewan[25];
+	char empty;
 	
-	
-	printf("Nama Kucing : ");
+	printf("%67.c Nama Kucing  : ", empty);
 	scanf("%s", &namaHewan);
 	fflush(stdin);
 	while((P != NULL)){

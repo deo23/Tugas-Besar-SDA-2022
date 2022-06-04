@@ -171,15 +171,15 @@ void Registrasi(Queue *Q);
 
 void PrintQueue(Queue Q);
 /* Proses : Menampilkan semua elemen pada antrian
-   I.S : Antrian belum ditampilkan
-   F.S : Antrian Sudah Ditampilkan
+   I.S : Antrean belum ditampilkan
+   F.S : Antrean Sudah Ditampilkan
    Author: Muhammad Deo Audha Rizki
 */
 
 void PrintNode(addrNQ P);
 /* Proses : Menampilkan elemen dengan alamat P
-   I.S : Antrian belum ditampilkan
-   F.S : Antrian Sudah Ditampilkan
+   I.S : Antrean belum ditampilkan
+   F.S : Antrean Sudah Ditampilkan
    Author: Muhammad Deo Audha Rizki
 */
 
