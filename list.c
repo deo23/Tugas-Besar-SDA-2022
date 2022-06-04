@@ -237,15 +237,15 @@ void PrintInfo(List L, char **C)
   
   //Kamus Lokal
   address P=First(L);
-  char empty;
+  
   //Algoritma
   if( P==Nil) { 
-  	  printf("%67.c 	List Kosong !\n", empty);
+  	  printf("List Kosong !\n");
   } else { /* List tidak kosong */
   		int j = 1;
 	    do { 
-	    	printf("  ");
-	 		printf("%67.c %d. %s --> %s\n", empty, j++, C[P->info.Penyakit-1], P->info.kategori);
+	    	printf("								      ");
+	 		printf("%d. %s --> %s\n", j++, C[P->info.Penyakit-1], P->info.kategori);
 		  	P=Next(P);
 	    } while(P!=Nil); 
 	 }

@@ -33,4 +33,6 @@ Mengirim hasil 0 jika start < 0
 Author: Muhammad Deo Audha Rizki
 */
 
+time convertMinToTime(time t);
+
 #endif

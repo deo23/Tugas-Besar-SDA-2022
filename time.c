@@ -62,3 +62,16 @@ Author: Muhammad Deo Audha Rizki
    	return 0;
    }
 }
+
+time convertMinToTime(time t){
+	time update;
+	
+	update.hour = t.min/60;
+	update.min = t.min %60;
+	
+	if(update.hour > 23){
+    	update.hour = update.hour - 24;
+	}
+	
+	return update;
+}

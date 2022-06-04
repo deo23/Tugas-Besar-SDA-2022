@@ -171,15 +171,15 @@ void Registrasi(Queue *Q);
 
 void PrintQueue(Queue Q);
 /* Proses : Menampilkan semua elemen pada antrian
-   I.S : Antrean belum ditampilkan
-   F.S : Antrean Sudah Ditampilkan
+   I.S : Antrian belum ditampilkan
+   F.S : Antrian Sudah Ditampilkan
    Author: Muhammad Deo Audha Rizki
 */
 
 void PrintNode(addrNQ P);
 /* Proses : Menampilkan elemen dengan alamat P
-   I.S : Antrean belum ditampilkan
-   F.S : Antrean Sudah Ditampilkan
+   I.S : Antrian belum ditampilkan
+   F.S : Antrian Sudah Ditampilkan
    Author: Muhammad Deo Audha Rizki
 */
 
@@ -195,4 +195,6 @@ addrNQ cariData (Queue Q);
    Mengirim True jika data ditemukan, mengirim Nil jika data tidak ditemukan
    Author: Muhammad Deo Audha Rizki
 */
+
+void tampilan();
 #endif // QUEUE_H
