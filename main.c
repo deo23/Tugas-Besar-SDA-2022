@@ -55,9 +55,11 @@ int panjang;
 		else if(menuPilihan == '3'){
 			P = cariData(Q);
 			if(P != Nil){
+				system("cls");
+				tampilan();
 				PrintNode(P);
 			}else{
-				printf("%35.c%c",empty,254);
+			system("cls");
  			tampilan();
 			printf("%67.c===========================================\n",empty);
 			printf("%67.c||       Tidak ada dalam antrian!        ||\n",empty);
@@ -76,7 +78,6 @@ int panjang;
 
 		}else if(menuPilihan == '5'){
 			system("cls");
-			printf("%35.c%c",empty,254);
  			tampilan();
 			printf("%67.c====================================\n",empty);
 			printf("%67.c||       Sampai Jumpa Lagi !      ||\n",empty);
@@ -84,8 +85,7 @@ int panjang;
 			exit(0);
 		}
 		else{
-		system("cls");
-			printf("%35.c%c",empty,254);
+			system("cls");
  			tampilan();
 			printf("\n");
 			printf("%67.c====================================\n",empty);
@@ -94,6 +94,7 @@ int panjang;
 			printf("%67.c||       Silakan Coba Lagi        ||\n",empty);
 			printf("%67.c====================================\n",empty);
 			system("pause");
+			system("cls");
 	
 		}
 	

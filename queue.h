@@ -157,8 +157,7 @@ void setTime(Queue *Q);
              perubahan urutan antrian
    I.S : Semua waktu belum ada nilai atau tidak sesuai
    F.S : Nilai semua waktu berubah seiring adanya perubahan urutan queue
-   Author: Suci Awalia Gardara
-   Modified: Muhammad Deo Audha Rizki
+   Author: Muhammad Deo Audha Rizki
 */
 
 
@@ -166,7 +165,7 @@ void Registrasi(Queue *Q);
 /* Proses : Menampilkan menu registrasi dan menerima masukan pengguna yang akan dimasukkan ke dalam Queue
    I.S : Data queue belum dimasukkan
    F.S : Data dari inputan pengguna dimasukkan ke dalam queue dan menampilkan isi daftar antrian
-   Author: Muhammad Deo Audha Rizki
+   Author: Suci Awalia Gardara
 */
 
 void PrintQueue(Queue Q);
@@ -193,8 +192,12 @@ void prosesAntrian(Queue *Q);
 addrNQ cariData (Queue Q);
 /* Proses : Mencari data dengan key search nama pada queue
    Mengirim True jika data ditemukan, mengirim Nil jika data tidak ditemukan
-   Author: Muhammad Deo Audha Rizki
+   Author: Suci Awalia Gardara
 */
 
 void tampilan();
+/* Proses : Menampilkan User Interface
+   Author: Berliana Elfada
+   			Suci Awalia Gardara
+*/
 #endif // QUEUE_H

@@ -12,14 +12,25 @@ Modified : Berliana Elfada
 Date Modified 	: 30 Mei 2022
 Version			: 2.0
 */
-#include <stdio.h>
 #include "queue.h"
 #include "time.h"
 
-
-time latestSelesai; //Variabel Global untuk menampung waktu selesai terakhir
+infotype temp;
+time latestDatang;
 int panjang;//Variabel Global untuk membuat tampilan menu
 char empty;//Variabel global untuk membuat tampilan menu
+
+char *arrPenyakit[9] = {
+	"Penyakit Kulit",
+	"Luka Ringan",
+	"Bersin",
+	"Cacingan",
+	"Diare",
+	"Luka Dalam",
+	"Kerongkongan Berlendir dan Berbau Busuk",
+	"Penyakit Kuning",
+	"Terkena Virus"
+};
 
 /***** Manajemen memori *****/
 addrNQ Alokasi(infotype X){
@@ -138,8 +149,9 @@ Author: Muhammad Deo Audha Rizki
 			Front(*Q) = Next(Front(*Q));
 		}
 		Next(P) = Nil;
-		latestSelesai.hour = Info(P).waktuSelesai.hour;
-		latestSelesai.min = Info(P).waktuSelesai.min;
+//		temp.waktuSelesai.hour = Info(P).waktuSelesai.hour;
+//		temp.waktuSelesai.min = Info(P).waktuSelesai.min;
+		temp = Info(P);
 		Dealokasi(&P);
 	}
 }
@@ -164,18 +176,6 @@ Author: Suci Awalia Gardara
 	return count;
 }
 
-
-char *arrPenyakit[9] = {
-	"Penyakit Kulit",
-	"Luka Ringan",
-	"Bersin",
-	"Cacingan",
-	"Diare",
-	"Luka Dalam",
-	"Kerongkongan Berlendir dan Berbau Busuk",
-	"Penyakit Kuning",
-	"Terkena Virus"
-};
 /***** Algoritma Program *****/
 
 void printPenyakit(){
@@ -228,14 +228,14 @@ int hitungPrioritas(int Ringan, int Sedang, int Berat){
 	//Kamus Lokal
 	int nilai = 1;
 	//Algoritma
-	if (Berat >= 1){
-		nilai += 4;
-	}
-	if (Sedang >= 2){
+	if (Berat >= 1){//Revisi
 		nilai += 3;
 	}
-	if (Ringan >= 3){
+	else if (Sedang >= 2){
 		nilai += 2;
+	}
+	else if (Ringan >= 3){
+		nilai += 1;
 	}
 	
 	return nilai;
@@ -255,23 +255,22 @@ void setTime(Queue *Q){
              perubahan urutan antrian
    I.S : Semua waktu belum ada nilai atau tidak sesuai
    F.S : Nilai semua waktu berubah seiring adanya perubahan urutan queue
-   Author: Suci Awalia Gardara
-   Modified: Muhammad Deo Audha Rizki
+   Author: Muhammad Deo Audha Rizki
 */
 	//Kamus Lokal
 	addrNQ P, prev;
 	//Algoritma
 	P = Front(*Q);
-	if((latestSelesai.hour == 0 && latestSelesai.min == 0) || compareTime(latestSelesai, Info(P).waktuDatang)==0){
+	if((temp.waktuSelesai.hour == 0 && temp.waktuSelesai.min == 0) || compareTime(temp.waktuSelesai, Info(P).waktuDatang)==0){
 		Info(P).waktuTunggu.hour = 0;
 		Info(P).waktuTunggu.min = 0;
 		Info(P).waktuMulai.hour = Info(P).waktuDatang.hour;
 		Info(P).waktuMulai.min = Info(P).waktuDatang.min;
 	}
 	else{
-		Info(P).waktuTunggu = substractTime(latestSelesai, Info(P).waktuDatang) ;
-		Info(P).waktuMulai.hour = latestSelesai.hour;
-		Info(P).waktuMulai.min = latestSelesai.min;
+		Info(P).waktuTunggu = substractTime(temp.waktuSelesai, Info(P).waktuDatang) ;
+		Info(P).waktuMulai.hour = temp.waktuSelesai.hour;
+		Info(P).waktuMulai.min = temp.waktuSelesai.min;
 	}
 	
 	Info(P).waktuSelesai = addTime(Info(P).waktuMulai, Info(P).waktuPelayanan);
@@ -286,24 +285,19 @@ void setTime(Queue *Q){
 	}
 }
 
-/* Proses : Menampilkan menu registrasi dan menerima masukan pengguna yang akan dimasukkan ke dalam Queue
-   I.S : Data queue belum dimasukkan
-   F.S : Data dari inputan pengguna dimasukkan ke dalam queue dan menampilkan isi daftar antrian
-*/
+
 void Registrasi(Queue *Q){
 /* Proses : Menampilkan menu registrasi dan menerima masukan pengguna yang akan dimasukkan ke dalam Queue
    I.S : Data queue belum dimasukkan
    F.S : Data dari inputan pengguna dimasukkan ke dalam queue dan menampilkan isi daftar antrian
-   Author: Muhammad Deo Audha Rizki
+   Author: Suci Awalia Gardara
 */
 	system("cls");
 	//Kamus Lokal
 	infotype X;
-	CreateList(&X.listPenyakit);
+	CreateList(&X.listPenyakit); //Membuat List Kosong untuk menampung penyakit
 	infoPenyakit Y;
 	time t;
-	char empty;
-	int panjang;
 	
 	int tempPenyakit[9];
 	int i, totalPenyakit;
@@ -315,8 +309,22 @@ void Registrasi(Queue *Q){
 	printf("					====================================\n");
 	printf("					Nama Hewan                  : "); scanf("%s", &X.namaHewan);
 	fflush(stdin);
-	printf("					Datang pada pukul (JJ:MM)   : "); scanf("%02d:%02d", &X.waktuDatang.hour, &X.waktuDatang.min);
-	fflush(stdin);
+	do{
+			printf("					Datang pada pukul (JJ:MM)   : "); scanf("%02d:%02d", &X.waktuDatang.hour, &X.waktuDatang.min);
+			fflush(stdin);
+			if(checkTime(X.waktuDatang) == 0){
+			printf("\n					Input Waktu Datang Tidak Valid!\n");
+			printf("					Silakan Coba Lagi!\n\n");
+			system("pause");
+			}
+			if(compareTime(X.waktuDatang, latestDatang) == 0){
+			printf("\n					Input Waktu Datang Harus Sesudah atau Sama Dengan Pasien Sebelumnya! --> %02d:%02d\n", latestDatang.hour, latestDatang.min);
+			printf("					Mohon Coba Lagi!\n\n");
+			system("pause");
+			}
+		
+	}while(checkTime(X.waktuDatang) == 0 || compareTime(X.waktuDatang, latestDatang) == 0);
+
 	
 	printf("\n");
 	printf("					       *** List Penyakit ***\n");
@@ -326,17 +334,17 @@ void Registrasi(Queue *Q){
 	puts("					No. Penyakit yang Diderita  : ");
 	for (i=0; i<totalPenyakit; i++){
 	    printf("					");
-		scanf("	%d", &tempPenyakit[i]);
+		scanf("	%d", &tempPenyakit[i]); //Membaca Penyakit yang diderita dari Input User
 	}
 	
-	int countR = 0;
-	int countS = 0;
-	int countB = 0;
+	int countR = 0; //Menampung jumlah penyakit ringan
+	int countS = 0; //Menampung jumlah penyakit sedang
+	int countB = 0; //Menampung jumlah penyakit berat
 	for (i=0; i<totalPenyakit; i++){
-		Y.Penyakit = tempPenyakit[i];
-		strcpy(Y.kategori, kategoriPenyakit(tempPenyakit[i]));
-		Y.waktuEstimasi = cekWaktuPelayanan(tempPenyakit[i]);
-		InsVLast(&X.listPenyakit, Y);
+		Y.Penyakit = tempPenyakit[i]; //Assign Jenis Penyakit (Integer)
+		strcpy(Y.kategori, kategoriPenyakit(tempPenyakit[i]));//Assign Kategori Penyakit (String)
+		Y.waktuEstimasi = cekWaktuPelayanan(tempPenyakit[i]); //Assign waktu pelayanan
+		InsVLast(&X.listPenyakit, Y); //Insert ke List
 		
 		if ((tempPenyakit[i]>0) && (tempPenyakit[i]<4)){
 			countR++;
@@ -353,38 +361,49 @@ void Registrasi(Queue *Q){
 	t.hour = 0;
 	X.waktuPelayanan = convertMinToTime(t);
 	enQueue(Q, X);
-
-	setTime(*(&Q));
 	
+	setTime(*(&Q));
+	latestDatang = X.waktuDatang;
 
 	printf("\n");
 	printf("					 *** Anda Sudah Terdaftar! *** \n\n");
 }
 
-/* Proses : Memasukkan data-data queue yang terinput ke dalam file daftar-antrian.txt
-           dan mengubah seluruh isi file seiring terjadinya perubahan urutan
-   I.S : File mungkin kosong atau tidak ada
-   F.S : Jika file tersebut tidak ada, program mengirimkan pesan eror
-  		 Jika ada, program akan meng-overwrite data-data queue
-*/
 
 void PrintQueue(Queue Q){
+	/* Proses : Menampilkan semua elemen pada antrian
+   I.S : Antrian belum ditampilkan
+   F.S : Antrian Sudah Ditampilkan
+   Author: Berliana Elfada
+*/
+
 	system ("cls");
-	addrNQ P;
-	char empty;
-	int panjang;
+	addrNQ P, addrTemp;
 	
-	int i=1, j;
+
+	
+	int i=1;
 	
 	P = Q.Front;
-tampilan();
+	addrTemp = Alokasi(temp);
+	tampilan();
+	printf("%19.c =========================================================================================================================================\n", empty);
+	printf("%67.c        	  RUANG PEMERIKSAAN\n", empty);
+	printf("%19.c =========================================================================================================================================\n\n", empty);
+	if(Info(addrTemp).waktuPelayanan.hour == 0 && Info(addrTemp).waktuPelayanan.min == 0){
+		printf("%67.c******** TIDAK ADA PASIEN DI RUANG PEMERIKSAAN ********\n\n", empty);
+	}else{
+		PrintNode(addrTemp);
+	}
+	
+	
 	printf("%19.c =========================================================================================================================================\n", empty);
 	printf("%67.c        	  DAFTAR ANTREAN\n", empty);
 	printf("%19.c =========================================================================================================================================\n", empty);
 	
 		
 	if(IsQueueEmpty(Q)){
-		printf("\n					* Tidak Ada Antrian yang Terdaftar *\n\n");
+		printf("%67.c******** TIDAK ADA ANTRIAN YANG TERDAFTAR ********\n\n", empty);
 	} else {
 		while(P != Nil){
 			printf("					No. Antrian                 : %d\n", i++);
@@ -396,6 +415,11 @@ tampilan();
 }
 
 void PrintNode(addrNQ P){
+	/* Proses : Menampilkan elemen dengan alamat P
+   I.S : Antrian belum ditampilkan
+   F.S : Antrian Sudah Ditampilkan
+   Author: Berliana Elfada
+*/
 	if(P != Nil){
 			printf("					Nama Hewan                  : %s\n", (P)->info.namaHewan);
 			printf("					Datang pada pukul           : %02d:%02d\n", (P)->info.waktuDatang.hour, (P)->info.waktuDatang.min);
@@ -412,6 +436,11 @@ void PrintNode(addrNQ P){
 }
 
 void prosesAntrian(Queue *Q){
+	/* Proses : Menampilkan elemen antrian sebelum di dequeue
+   I.S : elemen belum ditampilkan dan belum di dequeue
+   F.S : elemen Sudah Ditampilkan dan sudah di dequeue
+   Author: Muhammad Deo Audha Rizki
+*/
 	system ("cls");
 	addrNQ P;
 	infotype R;	
@@ -429,9 +458,8 @@ void prosesAntrian(Queue *Q){
 
 	
 	if (P == Nil) { // Jika Queue Kosong
-		printf("\n					* Tidak Ada Antrian yang Terdaftar *\n\n");
+		printf("%67.c******** TIDAK ADA ANTRIAN YANG TERDAFTAR ********\n\n", empty);
     } else {
-		while(P != Nil){
 			PrintNode(P);
 			P = Next(P);
 			R = InfoFront(*Q);
@@ -448,17 +476,21 @@ void prosesAntrian(Queue *Q){
 			else if(pilih == 'N' || pilih == 'n'){
 				printf("					***  Silahkan Kembali Ke Antrian ***\n");
 			}
-		}
+		
 	}
 }
 
 addrNQ cariData (Queue Q){
-	
+	/* Proses : Mencari data dengan key search nama pada queue
+   Mengirim True jika data ditemukan, mengirim Nil jika data tidak ditemukan
+   Author: Suci Awalia Gardara
+*/
+
 	addrNQ P = Front(Q);
 	char namaHewan[25];
 	
 	
-	printf("Nama Kucing : ");
+	printf("%67.c Nama Kucing : ", empty);
 	scanf("%s", &namaHewan);
 	fflush(stdin);
 	while((P != NULL)){
@@ -471,7 +503,10 @@ addrNQ cariData (Queue Q){
 } 
 
 void tampilan(){
-	
+	/* Proses : Menampilkan User Interface
+   Author: Berliana Elfada
+   			Suci Awalia Gardara
+*/
 printf("%35.c%c",empty,254);
  printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"); printf("%c", 254);
  printf("\n%35.c%c%18.c  ___   ______       _______     __         _____      _____",empty,254,empty);printf("%3.c",empty);printf("%22.c%c\n",empty,254);

@@ -34,5 +34,15 @@ Author: Muhammad Deo Audha Rizki
 */
 
 time convertMinToTime(time t);
+/* Mengonversi waktu dari menit ke Jam dan menit
+Author: Muhammad Deo Audha Rizki
+*/
+
+int checkTime (time J);
+/* Mengecek apakah waktu valid atau tidak
+Return 1 jika valid
+Return 0 jika tidak valid
+Author: Muhammad Deo Audha Rizki
+*/
 
 #endif

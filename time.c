@@ -49,21 +49,24 @@ Mengirim hasil 1 jika start > end
 Mengirim hasil 0 jika start < 0
 Author: Muhammad Deo Audha Rizki
 */
-	time diff;
-   while (end.min > start.min) {
-      --start.hour;
-      start.min += 60;
-   }
-   diff.min = start.min - end.min;
-   diff.hour = start.hour - end.hour;
-   if(diff.hour >= 0){
-   	return 1;
-   }else{
-   	return 0;
-   }
-}
+	int t1,t2;
+	
+	t1 = (60*start.hour) + start.min;
+	t2 = (60*end.hour) + end.min;
+	
+	if(t1 >= t2){
+		return 1;
+	}else{
+		return 0;
+	}
+}	
+
 
 time convertMinToTime(time t){
+/* Mengonversi waktu dari menit ke Jam dan menit
+Author: Muhammad Deo Audha Rizki
+*/
+
 	time update;
 	
 	update.hour = t.min/60;
@@ -74,4 +77,19 @@ time convertMinToTime(time t){
 	}
 	
 	return update;
+}
+
+int checkTime (time J)
+{
+/* Mengecek apakah waktu valid atau tidak
+Return 1 jika valid
+Return 0 jika tidak valid
+Author: Muhammad Deo Audha Rizki
+*/
+
+    if(((J.hour >= 0) && (J.hour <= 23)) && ((J.min >= 0) && (J.min <= 59))){
+    	return 1;
+	}else{
+		return 0;
+	}
 }
