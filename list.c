@@ -130,7 +130,7 @@ void PrintInfo(List L, char **C)
   		int j = 1;
 	    do { 
 	    	printf("								      ");
-	 		printf("%d. %s --> %s\n", j++, C[P->info.Penyakit-1], P->info.kategori);
+	 		printf("%d. %s --> %s (%d menit)\n", j++, C[P->info.Penyakit-1], P->info.kategori, Info(P).waktuEstimasi);
 		  	P=Next(P);
 	    } while(P!=Nil); 
 	 }
