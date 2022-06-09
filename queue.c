@@ -107,13 +107,13 @@ Author: Muhammad Deo Audha Rizki
 	//Algoritma
 	P = Alokasi(X);
 	if(P != Nil){
-		if(IsQueueEmpty((*Q)) || Info(P).prioritas > Info(Front(*Q)).prioritas){
+		if(IsQueueEmpty((*Q)) || (Info(P).prioritas > Info(Front(*Q)).prioritas && compareTime(Info(P).waktuDatang, Info(Front(*Q)).waktuDatang) == 0)){
 			Next(P) = Front(*Q);
 			Front(*Q) = P;
 		}
 		else{
 			temp = Front(*Q);
-			while((Next(temp) != Nil) && (Info(Next(temp)).prioritas >= Info(P).prioritas)){
+			while((Next(temp) != Nil) && (Info(Next(temp)).prioritas >= Info(P).prioritas) && compareTime(Info(Next(temp)).waktuDatang, Info(P).waktuSelesai) == 0){
 				temp = Next(temp);
 			}
 			Next(P) = Next(temp);
@@ -317,13 +317,13 @@ void Registrasi(Queue *Q){
 			printf("					Silakan Coba Lagi!\n\n");
 			system("pause");
 			}
-			if(compareTime(X.waktuDatang, latestDatang) == 0){
-			printf("\n					Input Waktu Datang Harus Sesudah atau Sama Dengan Pasien Sebelumnya! --> %02d:%02d\n", latestDatang.hour, latestDatang.min);
+			if(compareTime(X.waktuDatang, temp.waktuDatang) == 0){
+			printf("\n					Input Waktu Datang Harus Sesudah atau Sama Dengan Pasien Sebelumnya! --> %02d:%02d\n", temp.waktuDatang.hour, temp.waktuDatang.min);
 			printf("					Mohon Coba Lagi!\n\n");
 			system("pause");
 			}
 		
-	}while(checkTime(X.waktuDatang) == 0 || compareTime(X.waktuDatang, latestDatang) == 0);
+	}while(checkTime(X.waktuDatang) == 0 || compareTime(X.waktuDatang, temp.waktuDatang) == 0);
 
 	
 	printf("\n");
@@ -363,7 +363,7 @@ void Registrasi(Queue *Q){
 	enQueue(Q, X);
 	
 	setTime(*(&Q));
-	latestDatang = X.waktuDatang;
+
 
 	printf("\n");
 	printf("					 *** Anda Sudah Terdaftar! *** \n\n");
