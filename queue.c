@@ -107,7 +107,7 @@ Author: Muhammad Deo Audha Rizki
 	//Algoritma
 	P = Alokasi(X);
 	if(P != Nil){
-		if(IsQueueEmpty((*Q)) || (Info(P).prioritas > Info(Front(*Q)).prioritas || compareTime(Info(P).waktuDatang, Info(Front(*Q)).waktuDatang) == 0)){
+		if(IsQueueEmpty((*Q)) || (Info(P).prioritas > Info(Front(*Q)).prioritas || (Info(P).prioritas == Info(Front(*Q)).prioritas && compareTime(Info(P).waktuDatang, Info(Front(*Q)).waktuDatang) == 0))){
 			Next(P) = Front(*Q);
 			Front(*Q) = P;
 		}
