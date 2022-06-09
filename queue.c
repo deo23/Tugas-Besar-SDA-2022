@@ -107,13 +107,13 @@ Author: Muhammad Deo Audha Rizki
 	//Algoritma
 	P = Alokasi(X);
 	if(P != Nil){
-		if(IsQueueEmpty((*Q)) || (Info(P).prioritas > Info(Front(*Q)).prioritas && compareTime(Info(P).waktuDatang, Info(Front(*Q)).waktuDatang) == 0)){
+		if(IsQueueEmpty((*Q)) || (Info(P).prioritas > Info(Front(*Q)).prioritas || compareTime(Info(P).waktuDatang, Info(Front(*Q)).waktuDatang) == 0)){
 			Next(P) = Front(*Q);
 			Front(*Q) = P;
 		}
 		else{
 			temp = Front(*Q);
-			while((Next(temp) != Nil) && (Info(Next(temp)).prioritas >= Info(P).prioritas) && compareTime(Info(Next(temp)).waktuDatang, Info(P).waktuSelesai) == 0){
+			while((Next(temp) != Nil) && (Info(Next(temp)).prioritas >= Info(P).prioritas) && compareTime(Info(Next(temp)).waktuDatang, Info(P).waktuSelesai) == 1){
 				temp = Next(temp);
 			}
 			Next(P) = Next(temp);
